@@ -1,0 +1,448 @@
+[Core] Msg: Using 'DefaultPluginLoader' to load plugins.
+[Core] Msg: Environment Info:
+              Current Directory: C:\Users\padesso\Source\Repos\dualityNBody\Build\Output
+              Command Line: "C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\DualityEditor.exe" 
+              Operating System: Windows 8 or higher (Microsoft Windows NT 6.2.9200.0)
+              64 Bit OS: True
+              64 Bit Process: True
+              CLR Version: 4.0.30319.42000
+              Processor Count: 4
+              Processor Type: Intel64 Family 6 Model 78 Stepping 3, GenuineIntel
+              Processor Architecture: AMD64
+[Core] Msg: Currently Loaded Assemblies:
+              mscorlib 4.0.0.0
+              DualityEditor 2.10.8.0
+              System.Windows.Forms 4.0.0.0
+              System 4.0.0.0
+              System.Drawing 4.0.0.0
+              Duality 2.14.8.0
+              System.Runtime 4.0.0.0
+              System.IO 4.0.0.0
+              System.Collections 4.0.0.0
+              NuGet.Core 2.8.50926.602
+              System.Core 4.0.0.0
+              System.Xml.Linq 4.0.0.0
+              System.Xml 4.0.0.0
+              System.Xml.XDocument 4.0.0.0
+              System.Reflection 4.0.0.0
+              System.Xml.ReaderWriter 4.0.0.0
+              WindowsBase 4.0.0.0
+              System.Configuration 4.0.0.0
+              DualityPrimitives 2.0.6.0
+              Accessibility 4.0.0.0
+              AdamsLair.WinForms 1.1.14.0
+              WeifenLuo.WinFormsUI.Docking 2.8.1.0
+              System.Runtime.Extensions 4.0.0.0
+              System.Threading 4.0.0.0
+              System.Diagnostics.Debug 4.0.0.0
+              System.Linq 4.0.0.0
+              System.Globalization 4.0.0.0
+[Core] Msg: Plugin Base Directories:
+              Plugins
+[Core] Msg: Available Assembly Paths:
+              Plugins\AdamsLair.WinForms.dll
+              Plugins\CamView.editor.dll
+              Plugins\Compatibility.core.dll
+              Plugins\DefaultOpenTKBackend.core.dll
+              Plugins\DefaultOpenTKBackend.editor.dll
+              Plugins\DotNetFrameworkBackend.core.dll
+              Plugins\EditorBase.editor.dll
+              Plugins\GamePlugin.core.dll
+              Plugins\HelpAdvisor.editor.dll
+              Plugins\LogView.editor.dll
+              Plugins\ObjectInspector.editor.dll
+              Plugins\OpenALSoft32.dll
+              Plugins\OpenALSoft64.dll
+              Plugins\OpenTK.dll
+              Plugins\OpenTK.GLControl.dll
+              Plugins\PackageManagerFrontend.editor.dll
+              Plugins\ProjectView.editor.dll
+              Plugins\SceneView.editor.dll
+              Plugins\Tilemaps.core.dll
+              Plugins\Tilemaps.editor.dll
+[Core] Msg: Scanning for core plugins...
+[Core] Msg:   Plugins\Compatibility.core.dll...
+[Core] Msg:     Assembly loaded: Compatibility.core 2.0.2.0
+[Core] Msg:     Assembly loaded: System.Linq.Expressions 4.0.0.0
+[Core] Msg:     Assembly loaded: Anonymously Hosted DynamicMethods Assembly 0.0.0.0
+[Core] Msg:   Plugins\DefaultOpenTKBackend.core.dll...
+[Core] Msg:     Assembly loaded: DefaultOpenTKBackend.core 2.0.21.0
+[Core] Msg:     Assembly loaded: OpenTK 1.1.10.0
+[Core] Msg:   Plugins\DotNetFrameworkBackend.core.dll...
+[Core] Msg:     Assembly loaded: DotNetFrameworkBackend.core 2.1.1.0
+[Core] Msg:   Plugins\GamePlugin.core.dll...
+[Core] Msg:     Assembly loaded: GamePlugin.core 1.0.0.0
+[Core] Msg:   Plugins\Tilemaps.core.dll...
+[Core] Msg:     Assembly loaded: Tilemaps.core 1.1.14.0
+[Core] Msg: Loading auxiliary libraries...
+[Core] Msg:   Assembly loaded: AdamsLair.WinForms 1.1.14.0
+[Core] Msg:   Assembly loaded: OpenTK.GLControl 1.1.10.0
+[Core] Msg: Initializing ISystemBackend...
+[Core] Msg:   Assembly loaded: System.Text.RegularExpressions 4.0.0.0
+[Core] Msg:   .Net Framework...
+[Core] Msg: Assembly loaded: System.Text.Encoding 4.0.0.0
+[Core] Msg: Assembly loaded: System.Reflection.Extensions 4.0.0.0
+[Core] Msg: Initializing IGraphicsBackend...
+[Core] Msg:   OpenGL 2.1 (OpenTK)...
+[Core] Msg:     Initializing OpenTK...
+[Core] Msg:       Platform Backend: PreferNative
+                  EnableHighResolution: False
+[Core] Msg:     Available display devices:
+[Core] Msg:       First : 3000x2000 at  60 Hz, 32 bpp, pos [   0,   0] (Primary)
+[Core] Msg: Initializing IAudioBackend...
+[Core] Msg:   OpenAL (OpenTK)...
+[Core] Msg:     OpenAL Drivers not found. Using 64 Bit software fallback.
+[Core] Msg:     Available devices:
+                  Headphones (Realtek High Definition Audio(SST)) (Default)
+                  Headphones (Realtek High Definition Audio(SST)) (Default)
+[Core] Msg:     Current device: OpenAL Soft
+[Core] Msg:     OpenAL Version: 1.1 ALSOFT 1.15.1
+                Vendor: OpenAL Community
+                Renderer: OpenAL Soft
+                Effects: True
+[Core] Msg:     256 sources available
+[Core] Msg: Initializing core plugins...
+[Core] Msg:   Compatibility.core...
+[Edit] Msg:     Analyzing Core Plugin: Compatibility.core
+[Core] Msg:   DefaultOpenTKBackend.core...
+[Core] Msg:     Detected new Gamepad Input: "Gamepad 0" at index 0
+[Core] Msg:     Detected new Gamepad Input: "Gamepad 1" at index 1
+[Core] Msg:     Detected new Joystick Input: "Joystick 0" at index 0
+                Capabilities: 2 axes, 0 buttons, 0 hats
+[Core] Msg:     Detected new Joystick Input: "Joystick 1" at index 1
+                Capabilities: 2 axes, 0 buttons, 0 hats
+[Edit] Msg:     Analyzing Core Plugin: DefaultOpenTKBackend.core
+[Core] Msg:   DotNetFrameworkBackend.core...
+[Edit] Msg:     Analyzing Core Plugin: DotNetFrameworkBackend.core
+[Core] Msg:   GamePlugin.core...
+[Edit] Msg:     Analyzing Core Plugin: GamePlugin.core
+[Core] Msg:   Tilemaps.core...
+[Edit] Msg:     Analyzing Core Plugin: Tilemaps.core
+[Core] Msg: DualityApp initialized
+            Debug Mode: False
+            Command line arguments: null
+[Edit] Msg: Scanning for editor plugins...
+[Edit] Msg:   Plugins\CamView.editor.dll...
+[Core] Msg:     Assembly loaded: CamView.editor 2.6.3.0
+[Edit] Msg:   Plugins\DefaultOpenTKBackend.editor.dll...
+[Core] Msg:     Assembly loaded: DefaultOpenTKBackend.editor 2.0.7.0
+[Edit] Msg:   Plugins\EditorBase.editor.dll...
+[Core] Msg:     Assembly loaded: EditorBase.editor 2.2.12.0
+[Core] Msg:     Assembly loaded: PopupControl 1.0.0.0
+[Edit] Msg:   Plugins\HelpAdvisor.editor.dll...
+[Core] Msg:     Assembly loaded: HelpAdvisor.editor 2.0.6.0
+[Edit] Msg:   Plugins\LogView.editor.dll...
+[Core] Msg:     Assembly loaded: LogView.editor 2.1.10.0
+[Edit] Msg:   Plugins\ObjectInspector.editor.dll...
+[Core] Msg:     Assembly loaded: ObjectInspector.editor 2.1.2.0
+[Edit] Msg:   Plugins\PackageManagerFrontend.editor.dll...
+[Core] Msg:     Assembly loaded: PackageManagerFrontend.editor 2.1.3.0
+[Core] Msg:     Assembly loaded: Aga.Controls 1.7.6.0
+[Edit] Msg:   Plugins\ProjectView.editor.dll...
+[Core] Msg:     Assembly loaded: ProjectView.editor 2.0.14.0
+[Edit] Msg:   Plugins\SceneView.editor.dll...
+[Core] Msg:     Assembly loaded: SceneView.editor 2.0.14.0
+[Edit] Msg:   Plugins\Tilemaps.editor.dll...
+[Core] Msg:     Assembly loaded: Tilemaps.editor 1.1.21.0
+[Core] Msg: Initializing IEditorGraphicsBackend...
+[Core] Msg:   GLControl (OpenTK)...
+[Core] Msg: Initializing default content...
+[Core] Msg:   Assembly loaded: System.Runtime.InteropServices 4.0.0.0
+[Core] Msg:   Assembly loaded: System.Collections.Concurrent 4.0.0.0
+[Core] Msg:   Assembly loaded: System.Threading.Tasks.Parallel 4.0.0.0
+[Core] Msg:   Assembly loaded: NVorbis 0.7.5.0
+[Core] Msg:   ...done!
+[Edit] Msg: Loading user data...
+[Edit] Msg:   Loading DockPanel data...
+[Edit] Msg:     Deserializing layout: 'Duality.Editor.Plugins.CamView.CamView'
+[Edit] Msg:     Deserializing layout: 'Duality.Editor.Plugins.ProjectView.ProjectFolderView'
+[Edit] Msg:     Deserializing layout: 'Duality.Editor.Plugins.SceneView.SceneView'
+[Edit] Msg:     Deserializing layout: 'Duality.Editor.Plugins.ObjectInspector.ObjectInspector'
+[Edit] Msg:     Deserializing layout: 'Duality.Editor.Plugins.HelpAdvisor.HelpAdvisor'
+[Edit] Msg:     Deserializing layout: 'Duality.Editor.Plugins.LogView.LogView'
+[Edit] Msg:   Loading editor user data...
+[Edit] Msg: Initializing editor plugins...
+[Edit] Msg:   CamView.editor...
+[Edit] Msg:   DefaultOpenTKBackend.editor...
+[Edit] Msg:   EditorBase.editor...
+[Edit] Msg:   HelpAdvisor.editor...
+[Edit] Msg:   LogView.editor...
+[Edit] Msg:   ObjectInspector.editor...
+[Edit] Msg:   PackageManagerFrontend.editor...
+[Edit] Msg:   ProjectView.editor...
+[Edit] Msg:   SceneView.editor...
+[Edit] Msg:   Tilemaps.editor...
+[Core] Msg: Assembly loaded: FarseerDuality 4.1.4.0
+[Core] Msg: Assembly loaded: System.Security 4.0.0.0
+[Core] Msg: Assembly loaded: System.ComponentModel.DataAnnotations 4.0.0.0
+[Core] Msg: Assembly loaded: System.Data.SqlXml 4.0.0.0
+[Core] Msg: Assembly loaded: System.Xaml 4.0.0.0
+[Core] Msg: Assembly loaded: System.Design 4.0.0.0
+[Core] Msg: Loading Resource 'Data\Scene.Scene.res'
+[Edit] ERR: An error occurred: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.OnInit(InitContext context) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 39
+               at Duality.Resources.Scene.<>c.<OnEntered>b__54_0() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Resources\Scene.cs:line 292
+               at Duality.DualityApp.EditorGuard(Action action) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\DualityApp.cs:line 1018
+[Edit] ERR: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderPickingMap(Point2 viewportSize, Boolean renderOverlay) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 337
+               at Duality.Editor.Plugins.CamView.CamViewClient.RenderPickingMap() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 144
+               at Duality.Editor.Plugins.CamView.CamViewClient.PickRendererAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 103
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.PickSelObjAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 100
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateMouseover(Point mouseLoc) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 403
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateAction() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 363
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.ApplyEditorSelection(ObjectSelection selection) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 353
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.OnEnterState() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 58
+               at Duality.Editor.Plugins.CamView.CamView.SetCurrentState(CamViewState state) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamView.cs:line 708
+               at Duality.Editor.Plugins.CamView.CamView.SetCurrentState(Type stateType) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamView.cs:line 688
+               at Duality.Editor.Plugins.CamView.CamView.OnShown(EventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamView.cs:line 355
+               at System.Windows.Forms.Control.InvokeMarshaledCallbackHelper(Object obj)
+               at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+               at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+               at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+               at System.Windows.Forms.Control.InvokeMarshaledCallback(ThreadMethodEntry tme)
+               at System.Windows.Forms.Control.InvokeMarshaledCallbacks()
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] Msg: Determining OpenGL context capabilities...
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Edit] ERR: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderPickingMap(Point2 viewportSize, Boolean renderOverlay) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 337
+               at Duality.Editor.Plugins.CamView.CamViewClient.RenderPickingMap() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 144
+               at Duality.Editor.Plugins.CamView.CamViewClient.PickRendererAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 103
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.PickSelObjAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 100
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateMouseover(Point mouseLoc) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 403
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateAction() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 363
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.OnMouseMove(MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 746
+               at Duality.Editor.Plugins.CamView.CamViewStates.CamViewState.OnMouseMove() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\CamViewState.cs:line 564
+               at Duality.Editor.Plugins.CamView.CamViewStates.CamViewState.RenderableControl_MouseLeave(Object sender, EventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\CamViewState.cs:line 819
+               at System.EventHandler.Invoke(Object sender, EventArgs e)
+               at System.Windows.Forms.Control.OnMouseLeave(EventArgs e)
+               at System.Windows.Forms.Control.WndProc(Message& m)
+               at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Edit] ERR: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderPickingMap(Point2 viewportSize, Boolean renderOverlay) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 337
+               at Duality.Editor.Plugins.CamView.CamViewClient.RenderPickingMap() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 144
+               at Duality.Editor.Plugins.CamView.CamViewClient.PickRendererAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 103
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.PickSelObjAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 100
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateMouseover(Point mouseLoc) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 403
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateAction() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 363
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.ApplyEditorSelection(ObjectSelection selection) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 353
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.DualityEditorApp_SelectionChanged(Object sender, SelectionChangedEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 300
+               at System.EventHandler`1.Invoke(Object sender, TEventArgs e)
+               at Duality.Editor.DualityEditorApp.OnSelectionChanged(Object sender, Category changedCategoryFallback, SelectionChangeReason changeReson) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Editor\DualityEditor\DualityEditorApp.cs:line 1151
+               at Duality.Editor.DualityEditorApp.Select(Object sender, ObjectSelection sel, SelectMode mode) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Editor\DualityEditor\DualityEditorApp.cs:line 624
+               at Duality.Editor.Plugins.SceneView.SceneView.objectView_SelectionChanged(Object sender, EventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\SceneView\Modules\SceneView.cs:line 921
+               at Duality.Editor.Plugins.SceneView.SceneView.objectView_MouseUp(Object sender, MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\SceneView\Modules\SceneView.cs:line 1172
+               at System.Windows.Forms.Control.OnMouseUp(MouseEventArgs e)
+               at Aga.Controls.Tree.TreeViewAdv.OnMouseUp(MouseEventArgs e)
+               at System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+               at System.Windows.Forms.Control.WndProc(Message& m)
+               at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[Edit] ERR: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderPickingMap(Point2 viewportSize, Boolean renderOverlay) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 337
+               at Duality.Editor.Plugins.CamView.CamViewClient.RenderPickingMap() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 144
+               at Duality.Editor.Plugins.CamView.CamViewClient.PickRendererAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 103
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.PickSelObjAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 100
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateMouseover(Point mouseLoc) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 403
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateAction() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 363
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.OnMouseMove(MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 746
+               at Duality.Editor.Plugins.CamView.CamViewStates.CamViewState.RenderableControl_MouseMove(Object sender, MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\CamViewState.cs:line 721
+               at System.Windows.Forms.MouseEventHandler.Invoke(Object sender, MouseEventArgs e)
+               at System.Windows.Forms.Control.OnMouseMove(MouseEventArgs e)
+               at System.Windows.Forms.Control.WmMouseMove(Message& m)
+               at System.Windows.Forms.Control.WndProc(Message& m)
+               at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Edit] ERR: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderPickingMap(Point2 viewportSize, Boolean renderOverlay) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 337
+               at Duality.Editor.Plugins.CamView.CamViewClient.RenderPickingMap() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 144
+               at Duality.Editor.Plugins.CamView.CamViewClient.PickRendererAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 103
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.PickSelObjAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 100
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateMouseover(Point mouseLoc) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 403
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateAction() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 363
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.OnMouseMove(MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 746
+               at Duality.Editor.Plugins.CamView.CamViewStates.CamViewState.RenderableControl_MouseMove(Object sender, MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\CamViewState.cs:line 721
+               at System.Windows.Forms.MouseEventHandler.Invoke(Object sender, MouseEventArgs e)
+               at System.Windows.Forms.Control.OnMouseMove(MouseEventArgs e)
+               at System.Windows.Forms.Control.WmMouseMove(Message& m)
+               at System.Windows.Forms.Control.WndProc(Message& m)
+               at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Edit] ERR: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderPickingMap(Point2 viewportSize, Boolean renderOverlay) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 337
+               at Duality.Editor.Plugins.CamView.CamViewClient.RenderPickingMap() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 144
+               at Duality.Editor.Plugins.CamView.CamViewClient.PickRendererAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 103
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.PickSelObjAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 100
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateMouseover(Point mouseLoc) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 403
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateAction() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 363
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.OnMouseMove(MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 746
+               at Duality.Editor.Plugins.CamView.CamViewStates.CamViewState.RenderableControl_MouseMove(Object sender, MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\CamViewState.cs:line 721
+               at System.Windows.Forms.MouseEventHandler.Invoke(Object sender, MouseEventArgs e)
+               at System.Windows.Forms.Control.OnMouseMove(MouseEventArgs e)
+               at System.Windows.Forms.Control.WmMouseMove(Message& m)
+               at System.Windows.Forms.Control.WndProc(Message& m)
+               at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Edit] ERR: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderPickingMap(Point2 viewportSize, Boolean renderOverlay) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 337
+               at Duality.Editor.Plugins.CamView.CamViewClient.RenderPickingMap() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 144
+               at Duality.Editor.Plugins.CamView.CamViewClient.PickRendererAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 103
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.PickSelObjAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 100
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateMouseover(Point mouseLoc) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 403
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateAction() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 363
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.OnMouseMove(MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 746
+               at Duality.Editor.Plugins.CamView.CamViewStates.CamViewState.RenderableControl_MouseMove(Object sender, MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\CamViewState.cs:line 721
+               at System.Windows.Forms.MouseEventHandler.Invoke(Object sender, MouseEventArgs e)
+               at System.Windows.Forms.Control.OnMouseMove(MouseEventArgs e)
+               at System.Windows.Forms.Control.WmMouseMove(Message& m)
+               at System.Windows.Forms.Control.WndProc(Message& m)
+               at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Edit] ERR: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderPickingMap(Point2 viewportSize, Boolean renderOverlay) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 337
+               at Duality.Editor.Plugins.CamView.CamViewClient.RenderPickingMap() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 144
+               at Duality.Editor.Plugins.CamView.CamViewClient.PickRendererAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\Modules\CamViewClient.cs:line 103
+               at Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState.PickSelObjAt(Int32 x, Int32 y) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\SceneEditor\SceneEditorCamViewState.cs:line 100
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateMouseover(Point mouseLoc) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 403
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.UpdateAction() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 363
+               at Duality.Editor.Plugins.CamView.CamViewStates.ObjectEditorCamViewState.OnMouseMove(MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\ObjectEditor\ObjectEditorCamViewState.cs:line 746
+               at Duality.Editor.Plugins.CamView.CamViewStates.CamViewState.RenderableControl_MouseMove(Object sender, MouseEventArgs e) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Plugins\EditorModules\CamView\CamViewStates\CamViewState.cs:line 721
+               at System.Windows.Forms.MouseEventHandler.Invoke(Object sender, MouseEventArgs e)
+               at System.Windows.Forms.Control.OnMouseMove(MouseEventArgs e)
+               at System.Windows.Forms.Control.WmMouseMove(Message& m)
+               at System.Windows.Forms.Control.WndProc(Message& m)
+               at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Core] ERR: There was an error while Camera in "CamView Camera 0" was collecting drawcalls: NullReferenceException: Object reference not set to an instance of an object.
+            CallStack:
+               at NBody.Universe.Draw(IDrawDevice device) in C:\Users\padesso\Source\Repos\dualityNBody\Build\Output\Source\Code\CorePlugin\NBodyWorld.cs:line 61
+               at Duality.Components.Camera.CollectDrawcalls() in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 654
+               at Duality.Components.Camera.RenderSinglePass(Rect viewportRect, Pass p) in C:\Users\padesso\Source\Repos\dualityNBody\Source\Core\Duality\Components\Camera.cs:line 565
+[Edit] Msg: Saving user data...
+[Core] Msg: Shutting down GLControl (OpenTK)...
+[Core] Msg: Shutting down OpenGL 2.1 (OpenTK)...
+[Core] Msg: Shutting down OpenAL (OpenTK)...
+[Core] Msg: Shutting down .Net Framework...
+[Core] Msg: DualityApp terminated

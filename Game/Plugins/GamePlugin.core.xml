@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GamePlugin.core</name>
+    </assembly>
+    <members>
+        <member name="T:NBody.NBodyCorePlugin">
+            <summary>
+            Defines a Duality core plugin.
+            </summary>
+        </member>
+        <member name="M:Output.DataStructures.QuadTree.Subdivide">
+            <summary>
+            Create the quads as four equal regions in reference to this quad.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Output.DataStructures.QuadTree.Insert(Output.DataStructures.Node)" -->
+        <member name="M:Output.DataStructures.QuadTree.Delete(Output.DataStructures.Node)">
+            <summary>
+            Removes the first position from the quad tree at the position passed.
+            </summary>
+            <param name="pos">The position to be removed.</param>
+            <returns>A true indicates a position was successfully removed.</returns>
+        </member>
+        <member name="M:Output.DataStructures.QuadTree.QueryBounds(Duality.Rect)">
+            <summary>
+            Find all points within an axis aligned bounding box.
+            </summary>
+            <param name="bounds">An axis aligned bounding box to find all points in the quadtree.</param>
+            <returns>A list of Vectors representing all positions within the AABB passed.</returns>
+        </member>
+    </members>
+</doc>
