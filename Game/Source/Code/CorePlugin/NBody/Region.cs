@@ -1,12 +1,12 @@
 ﻿using Duality;
-using Output.DataStructures;
+using DataStructures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Output.NBody
+namespace NBody
 {
     public class Region
     {

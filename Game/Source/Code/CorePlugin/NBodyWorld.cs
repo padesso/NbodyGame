@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Duality;
-using Output.DataStructures;
+using DataStructures;
 using Duality.Components;
 using Duality.Drawing;
 using Duality.Resources;
@@ -43,7 +43,7 @@ namespace NBody
             {
                 _camera = this.GameObj.ParentScene.FindComponent<Camera>();
                 _transform = this.GameObj.GetComponent<Transform>();
-                _quadTree = new QuadTree(new Rect(_transform.Pos.X, _transform.Pos.Y, Width, Height));
+                _quadTree = new QuadTree(_transform.Pos.X, _transform.Pos.Y, Width, Height);
 
                 //Random rand = new Random(DateTime.Now.Millisecond);
                 //for (int i = 0; i < 100; i++)

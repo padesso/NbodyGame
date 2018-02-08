@@ -9,20 +9,20 @@
             Defines a Duality core plugin.
             </summary>
         </member>
-        <member name="M:Output.DataStructures.QuadTree.Subdivide">
+        <member name="M:DataStructures.QuadTree.Subdivide">
             <summary>
             Create the quads as four equal regions in reference to this quad.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Output.DataStructures.QuadTree.Insert(Output.DataStructures.Node)" -->
-        <member name="M:Output.DataStructures.QuadTree.Delete(Output.DataStructures.Node)">
+        <!-- Badly formed XML comment ignored for member "M:DataStructures.QuadTree.Insert(DataStructures.Node)" -->
+        <member name="M:DataStructures.QuadTree.Delete(DataStructures.Node)">
             <summary>
             Removes the first position from the quad tree at the position passed.
             </summary>
             <param name="pos">The position to be removed.</param>
             <returns>A true indicates a position was successfully removed.</returns>
         </member>
-        <member name="M:Output.DataStructures.QuadTree.QueryBounds(Duality.Rect)">
+        <member name="M:DataStructures.QuadTree.QueryBounds(Duality.Rect)">
             <summary>
             Find all points within an axis aligned bounding box.
             </summary>

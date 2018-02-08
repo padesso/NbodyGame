@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Output.DataStructures
+namespace DataStructures
 {
     public class Node
     {

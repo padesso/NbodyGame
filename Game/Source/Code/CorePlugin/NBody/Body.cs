@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Duality.Drawing;
-using Output.DataStructures;
+using DataStructures;
 
-namespace Output.NBody
+namespace NBody
 {
     public class Body : Component, ICmpUpdatable, ICmpRenderer
     {

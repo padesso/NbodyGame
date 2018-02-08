@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Output.DataStructures
+namespace DataStructures
 {
     public class QuadTree
     {
@@ -18,9 +18,9 @@ namespace Output.DataStructures
         private QuadTree southWest;
         private QuadTree southEast;
 
-        public QuadTree(Rect bounds)
+        public QuadTree(float topLeftX, float topLeftY, float width, float height)
         {
-            this.Bounds = bounds;
+            this.Bounds = new Rect(topLeftX, topLeftY, width, height);
         }
 
         /// <summary>
@@ -29,28 +29,28 @@ namespace Output.DataStructures
         private void Subdivide()
         {
             NorthWest = new QuadTree(
-                new Rect(Bounds.X, 
+                    Bounds.X, 
                     Bounds.Y,
                     Bounds.W / 2.0f, 
-                    Bounds.H / 2.0f));
+                    Bounds.H / 2.0f);
 
             NorthEast = new QuadTree(
-                new Rect(Bounds.CenterX, 
+                    Bounds.CenterX, 
                     Bounds.Y,
                     Bounds.W / 2.0f, 
-                    Bounds.H / 2.0f));
+                    Bounds.H / 2.0f);
 
             SouthWest = new QuadTree(
-                new Rect(Bounds.X, 
+                    Bounds.X, 
                     Bounds.CenterY,
                     Bounds.W / 2.0f, 
-                    Bounds.H / 2.0f));
+                    Bounds.H / 2.0f);
 
             SouthEast = new QuadTree(
-                new Rect(Bounds.CenterX, 
+                    Bounds.CenterX, 
                     Bounds.CenterY,
                     Bounds.W / 2.0f, 
-                    Bounds.H / 2.0f));
+                    Bounds.H / 2.0f);
         }
 
         /// <summary>
