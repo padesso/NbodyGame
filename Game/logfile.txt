@@ -87,8 +87,7 @@
 [Core] Msg:   OpenAL (OpenTK)...
 [Core] Msg:     OpenAL Drivers not found. Using 64 Bit software fallback.
 [Core] Msg:     Available devices:
-                  Headphones (Realtek High Definition Audio(SST)) (Default)
-                  Headphones (Realtek High Definition Audio(SST)) (Default)
+                  Speakers (Realtek High Definition Audio(SST)) (Default)
 [Core] Msg:     Current device: OpenAL Soft
 [Core] Msg:     OpenAL Version: 1.1 ALSOFT 1.15.1
                 Vendor: OpenAL Community

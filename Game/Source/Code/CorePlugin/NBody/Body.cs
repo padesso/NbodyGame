@@ -12,45 +12,13 @@ namespace Output.NBody
     public class Body : Component, ICmpUpdatable, ICmpRenderer
     {
         private Node _node;
-        private int _mass;
+        private float _mass;
+        private Vector2 _force;
 
-        public Body()
+        public Body(float x, float y, float mass)
         {
-
-        }
-
-        public float BoundRadius
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public int Mass
-        {
-            get
-            {
-                return _mass;
-            }
-
-            set
-            {
-                _mass = value;
-            }
-        }
-
-        public Node Node
-        {
-            get
-            {
-                return _node;
-            }
-
-            set
-            {
-                _node = value;
-            }
+            Node = new Node(x, y);
+            Mass = mass;
         }
 
         public void Draw(IDrawDevice device)
@@ -79,6 +47,53 @@ namespace Output.NBody
         public void OnUpdate()
         {
             //TODO: integrate movement
+        }
+
+        public float BoundRadius
+        {
+            get
+            {
+                return 2.0f;
+            }
+        }
+
+        public float Mass
+        {
+            get
+            {
+                return _mass;
+            }
+
+            set
+            {
+                _mass = value;
+            }
+        }
+
+        public Node Node
+        {
+            get
+            {
+                return _node;
+            }
+
+            set
+            {
+                _node = value;
+            }
+        }
+
+        public Vector2 Force
+        {
+            get
+            {
+                return _force;
+            }
+
+            set
+            {
+                _force = value;
+            }
         }
     }
 }

@@ -20,10 +20,15 @@ namespace NBody
         private int _height;
 
         [DontSerialize]
-        QuadTree _quadTree;
+        private QuadTree _quadTree;
 
         [DontSerialize]
-        Transform _transform;
+        private Transform _transform;
+
+        //Distance threshold
+        private float _theta = 0.5f;
+
+        private bool _showQuadTreeBorders = true;
 
         public Universe()
         {
@@ -78,15 +83,19 @@ namespace NBody
 
         public void Draw(IDrawDevice device)
         {
-            Canvas canvas = new Canvas(device);
-
-            //Draw the quadtree bounds
-            DrawQuadTreeBounds(_quadTree, device, canvas);
-
-            List<Node> allNodes = _quadTree.QueryBounds(new Rect(_transform.Pos.X, _transform.Pos.Y, Width, Height));
-            foreach (Node node in allNodes)
+            if (ShowQuadTreeBorders)
             {
-                canvas.FillCircle(node.Position.X, node.Position.Y, 2);
+                Canvas canvas = new Canvas(device);
+
+                //Draw the quadtree bounds
+                DrawQuadTreeBounds(_quadTree, device, canvas);
+
+                //TODO: move this into the draw for the Body object
+                List<Node> allNodes = _quadTree.QueryBounds(new Rect(_transform.Pos.X, _transform.Pos.Y, Width, Height));
+                foreach (Node node in allNodes)
+                {
+                    canvas.FillCircle(node.Position.X, node.Position.Y, 2);
+                }
             }
         }
 
@@ -176,6 +185,19 @@ namespace NBody
                     _height = value;
                 }
             }
-        }        
+        }
+
+        public bool ShowQuadTreeBorders
+        {
+            get
+            {
+                return _showQuadTreeBorders;
+            }
+
+            set
+            {
+                _showQuadTreeBorders = value;
+            }
+        }
     }
 }
