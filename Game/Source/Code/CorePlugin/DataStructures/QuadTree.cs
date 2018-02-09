@@ -96,16 +96,16 @@ namespace DataStructures
             }
 
             //Attempt to insert new node
-            if (NorthWest.Insert(pos))
+            if (NorthWest.Insert(node))
                 return true;
 
-            if (NorthEast.Insert(pos))
+            if (NorthEast.Insert(node))
                 return true;
 
-            if (SouthWest.Insert(pos))
+            if (SouthWest.Insert(node))
                 return true;
 
-            if (SouthEast.Insert(pos))
+            if (SouthEast.Insert(node))
                 return true;
            
             // The point cannot be inserted

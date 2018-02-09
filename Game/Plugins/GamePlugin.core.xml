@@ -11,23 +11,29 @@
         </member>
         <member name="M:DataStructures.QuadTree.Subdivide">
             <summary>
-            Create the quads as four equal regions in reference to this quad.
+            Create the quads as four quadtrees that are equally subdivided in reference to this quad.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:DataStructures.QuadTree.Insert(DataStructures.Node)" -->
+        <member name="M:DataStructures.QuadTree.Insert(DataStructures.Node)">
+            <summary>
+            Add a node to the quadtree
+            </summary>
+            <param name="node">A Node to add to the quadtree</param>
+            <returns>True if the insertion was successful.</returns>
+        </member>
         <member name="M:DataStructures.QuadTree.Delete(DataStructures.Node)">
             <summary>
-            Removes the first position from the quad tree at the position passed.
+            Removes the first node from the quad tree at the position passed.
             </summary>
-            <param name="pos">The position to be removed.</param>
-            <returns>A true indicates a position was successfully removed.</returns>
+            <param name="pos">The node to be removed.</param>
+            <returns>A true indicates a node was successfully removed.</returns>
         </member>
         <member name="M:DataStructures.QuadTree.QueryBounds(Duality.Rect)">
             <summary>
             Find all points within an axis aligned bounding box.
             </summary>
-            <param name="bounds">An axis aligned bounding box to find all points in the quadtree.</param>
-            <returns>A list of Vectors representing all positions within the AABB passed.</returns>
+            <param name="bounds">An rectangle used to find all points in the quadtree.</param>
+            <returns>A list of nodes representing all positions within the Rect passed.</returns>
         </member>
     </members>
 </doc>
