@@ -11,9 +11,11 @@ namespace NBody
     public struct Region
     {
         private QuadTree _quadTree;
+        private List<Body> _bodies;
 
         public Region(float topLeftX, float topLeftY, float width, float height)
         {
+            _bodies = new List<Body>();
             _quadTree = new QuadTree(topLeftX, topLeftY, width, height);
         }
 
@@ -30,35 +32,49 @@ namespace NBody
             }
         }
 
+        public List<Body> Bodies
+        {
+            get
+            {
+                return _bodies;
+            }
+
+            set
+            {
+                _bodies = value;
+            }
+        }
+
         public bool AddBody(Body body)
         {
-            if(_quadTree.Insert(body.Node))
+            if (_quadTree.Insert(body.Node))
+            {
+                Bodies.Add(body);
                 return true;
-
+            }
             return false;
         }
 
         public bool RemoveBody(Body body)
         {
             if (_quadTree.Delete(body.Node))
+            {
+                Bodies.Remove(body);
                 return true;
-
+            }
             return false;
         }
 
         public MassDistribution Distribution()
         {
-            List<Node> quadNodes = _quadTree.QueryBounds(_quadTree.Bounds);
-
             MassDistribution tempDistribution = new MassDistribution();
 
-            if(quadNodes.Count == 1)
+            if(Bodies.Count == 1)
             {
-                //TODO: update to use Body object
-                //tempDistribution.Mass = quadNodes[0].Mass;
-                //tempDistribution.CenterOfMass = quadNodes[0].Position;
+                tempDistribution.Mass = Bodies[0].Mass;
+                tempDistribution.CenterOfMass = Bodies[0].Node.Position;
             }
-            foreach(Node node in quadNodes)
+            foreach(Body node in Bodies)
             {
 
             }
