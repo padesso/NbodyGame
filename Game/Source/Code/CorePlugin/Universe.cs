@@ -21,9 +21,8 @@ namespace NBody
 
         [DontSerialize]
         private QuadTree _quadTree;
-
         [DontSerialize]
-        private Transform _transform;
+        private List<Body> _bodies;
 
         //Distance threshold
         private float _theta = 0.5f;
@@ -42,8 +41,8 @@ namespace NBody
             if (context == InitContext.Activate)
             {
                 _camera = this.GameObj.ParentScene.FindComponent<Camera>();
-                _transform = this.GameObj.GetComponent<Transform>();
-                _quadTree = new QuadTree(_transform.Pos.X, _transform.Pos.Y, Width, Height);
+                _bodies = new List<Body>();
+                _quadTree = new QuadTree(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height);
 
                 //Random rand = new Random(DateTime.Now.Millisecond);
                 //for (int i = 0; i < 100; i++)
@@ -60,11 +59,28 @@ namespace NBody
             }
         }
 
-        public void OnShutdown(ShutdownContext context)
+        public bool AddBody(Body body)
         {
-            _quadTree = null;
+            if (_quadTree.Insert(body.Node))
+            {
+                _bodies.Add(body);
+                return true;
+            }
+
+            return false;
         }
 
+        public bool RemoveBody(Body body)
+        {
+            if(_quadTree.Delete(body.Node))
+            {
+                _bodies.Remove(body);
+                return true;
+            }
+
+            return false;
+        }
+                
         public bool IsVisible(IDrawDevice device)
         {
             bool anyGroupFlag =
@@ -90,9 +106,8 @@ namespace NBody
                 //Draw the quadtree bounds
                 DrawQuadTreeBounds(_quadTree, device, canvas);
 
-                //TODO: move this into the draw for the Body object
-                List<Node> allNodes = _quadTree.QueryBounds(new Rect(_transform.Pos.X, _transform.Pos.Y, Width, Height));
-                foreach (Node node in allNodes)
+                List<Node> allNodesList = _quadTree.ToList();
+                foreach (Node node in allNodesList)
                 {
                     canvas.FillCircle(node.Position.X, node.Position.Y, 2);
                 }
@@ -123,20 +138,27 @@ namespace NBody
             if (DualityApp.Mouse.ButtonHit(MouseButton.Left))
             {
                 Vector3 mouseObjPos = _camera.GetSpaceCoord(DualityApp.Mouse.Pos);
-                _quadTree.Insert(new Node(mouseObjPos.X, mouseObjPos.Y));
+                Body newBody = new Body(mouseObjPos.X, mouseObjPos.Y, 100f);
+                AddBody(newBody);
             }
 
-            //Randomly move nodes around
-            //Random rand = new Random(DateTime.Now.Millisecond);
-            //List<Node> allNodes = _quadTree.QueryBounds(new Rect(_transform.Pos.X, _transform.Pos.Y, Width, Height));
-            //foreach (Node node in allNodes)
-            //{
-            //    _quadTree.Delete(node);
-            //    node.Position = new Vector2(node.Position.X + rand.NextFloat(-0.5f, 0.5f) * Duality.Time.TimeMult,
-            //                                 node.Position.Y + rand.NextFloat(-0.5f, 0.5f) * Duality.Time.TimeMult);
-            //    _quadTree.Insert(node);
-            //}
+            //Rebuild the tree each from to account for movement
+            //List<Body> allBodies = _quadTree.QueryBounds(new Rect(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height));
+            List<Body> bodyBuffer = new List<Body>(_bodies);
+            foreach (Body body in bodyBuffer)
+            {
+                RemoveBody(body);
+                body.Node.Position = new Vector2(body.Node.Position.X + body.Force.X * Duality.Time.TimeMult,
+                                                    body.Node.Position.Y + body.Force.Y * Duality.Time.TimeMult);
+                AddBody(body);
+            }
         }
+
+        public void OnShutdown(ShutdownContext context)
+        {
+            _quadTree = null;
+        }
+
 
         public float BoundRadius
         {

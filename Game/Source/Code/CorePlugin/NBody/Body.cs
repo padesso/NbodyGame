@@ -9,7 +9,7 @@ using DataStructures;
 
 namespace NBody
 {
-    public class Body : Component, ICmpUpdatable, ICmpRenderer
+    public struct Body
     {
         private Node _node;
         private float _mass;
@@ -17,15 +17,9 @@ namespace NBody
 
         public Body(float x, float y, float mass)
         {
-            Node = new Node(x, y);
-            Mass = mass;
-        }
-
-        public void Draw(IDrawDevice device)
-        {
-            Canvas canvas = new Canvas(device);
-
-            canvas.FillCircle(_node.Position.X, _node.Position.Y, 2);
+            _node = new Node(x, y);
+            _mass = mass;
+            _force = Vector2.One;
         }
 
         public bool IsVisible(IDrawDevice device)
@@ -42,19 +36,6 @@ namespace NBody
             if (screenOverlayFlag) return false;
 
             return true;
-        }
-
-        public void OnUpdate()
-        {
-            //TODO: integrate movement
-        }
-
-        public float BoundRadius
-        {
-            get
-            {
-                return 2.0f;
-            }
         }
 
         public float Mass
