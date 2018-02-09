@@ -20,7 +20,7 @@ namespace NBody
         private int _height;
 
         [DontSerialize]
-        private QuadTree _quadTree;
+        private Region _topRegion;
         [DontSerialize]
         private List<Body> _bodies;
 
@@ -42,13 +42,13 @@ namespace NBody
             {
                 _camera = this.GameObj.ParentScene.FindComponent<Camera>();
                 _bodies = new List<Body>();
-                _quadTree = new QuadTree(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height);
+                _topRegion = new Region(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height);
             }
         }
 
         public bool AddBody(Body body)
         {
-            if (_quadTree.Insert(body.Node))
+            if (_topRegion.AddBody(body))
             {
                 _bodies.Add(body);
                 return true;
@@ -59,7 +59,7 @@ namespace NBody
 
         public bool RemoveBody(Body body)
         {
-            if(_quadTree.Delete(body.Node))
+            if(_topRegion.RemoveBody(body))
             {
                 _bodies.Remove(body);
                 return true;
@@ -91,9 +91,9 @@ namespace NBody
                 Canvas canvas = new Canvas(device);
 
                 //Draw the quadtree bounds
-                DrawQuadTreeBounds(_quadTree, device, canvas);
+                DrawQuadTreeBounds(_topRegion.QuadTree, device, canvas);
 
-                List<Node> allNodesList = _quadTree.ToList();
+                List<Node> allNodesList = _topRegion.QuadTree.ToList();
                 foreach (Node node in allNodesList)
                 {
                     canvas.FillCircle(node.Position.X, node.Position.Y, 2);
@@ -142,7 +142,7 @@ namespace NBody
 
         public void OnShutdown(ShutdownContext context)
         {
-            _quadTree = null;
+            
         }
 
         public float BoundRadius

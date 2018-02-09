@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace NBody
 {
-    public class Region
+    public struct Region
     {
         private QuadTree _quadTree;
 
-        public Region(QuadTree quadTree)
+        public Region(float topLeftX, float topLeftY, float width, float height)
         {
-            QuadTree = quadTree;
+            _quadTree = new QuadTree(topLeftX, topLeftY, width, height);
         }
 
         public QuadTree QuadTree
@@ -28,6 +28,22 @@ namespace NBody
             {
                 _quadTree = value;
             }
+        }
+
+        public bool AddBody(Body body)
+        {
+            if(_quadTree.Insert(body.Node))
+                return true;
+
+            return false;
+        }
+
+        public bool RemoveBody(Body body)
+        {
+            if (_quadTree.Delete(body.Node))
+                return true;
+
+            return false;
         }
 
         public MassDistribution Distribution()
