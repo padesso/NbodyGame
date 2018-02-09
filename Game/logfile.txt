@@ -82,12 +82,15 @@
                   EnableHighResolution: True
 [Core] Msg:     Assembly loaded: System.Drawing 4.0.0.0
 [Core] Msg:     Available display devices:
-[Core] Msg:       First : 3000x2000 at  60 Hz, 32 bpp, pos [   0,   0] (Primary)
+[Core] Msg:       First : 3000x2000 at  60 Hz, 32 bpp, pos [-3000,   0]
+[Core] Msg:       Second: 1920x1200 at  59 Hz, 32 bpp, pos [1920,   0]
+[Core] Msg:       Third : 1920x1200 at  59 Hz, 32 bpp, pos [   0,   0] (Primary)
 [Core] Msg: Initializing IAudioBackend...
 [Core] Msg:   OpenAL (OpenTK)...
 [Core] Msg:     OpenAL Drivers not found. Using 64 Bit software fallback.
 [Core] Msg:     Available devices:
-                  Speakers (Realtek High Definition Audio(SST)) (Default)
+                  Headphones (Realtek High Definition Audio(SST)) (Default)
+                  Headphones (Realtek High Definition Audio(SST)) (Default)
 [Core] Msg:     Current device: OpenAL Soft
 [Core] Msg:     OpenAL Version: 1.1 ALSOFT 1.15.1
                 Vendor: OpenAL Community

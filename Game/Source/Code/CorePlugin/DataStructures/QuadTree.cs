@@ -1,4 +1,5 @@
 ﻿using Duality;
+using NBody;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +19,18 @@ namespace DataStructures
         private QuadTree southWest;
         private QuadTree southEast;
 
+        private List<Body> _bodies;
+
         public QuadTree(float topLeftX, float topLeftY, float width, float height)
         {
             this.Bounds = new Rect(topLeftX, topLeftY, width, height);
+            _bodies = new List<Body>();
         }
 
         /// <summary>
         /// Create the quads as four quadtrees that are equally subdivided in reference to this quad.
         /// </summary>
-        private void Subdivide()
+        protected virtual void Subdivide()
         {
             NorthWest = new QuadTree(
                     Bounds.X, 
@@ -53,12 +57,32 @@ namespace DataStructures
                     Bounds.H / 2.0f);
         }
 
+        public bool AddBody(Body body)
+        {
+            if (Insert(body.Node))
+            {
+                Bodies.Add(body);
+                return true;
+            }
+            return false;
+        }
+
+        public bool RemoveBody(Body body)
+        {
+            if (Delete(body.Node))
+            {
+                Bodies.Remove(body);
+                return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// Add a node to the quadtree
         /// </summary>
         /// <param name="node">A Node to add to the quadtree</param>
         /// <returns>True if the insertion was successful.</returns>
-        public bool Insert(Node node)
+        private bool Insert(Node node)
         {
             // Ignore objects that do not belong in this quad tree
             if (!this.Bounds.Contains(node.Position))
@@ -117,7 +141,7 @@ namespace DataStructures
         /// </summary>
         /// <param name="pos">The node to be removed.</param>
         /// <returns>A true indicates a node was successfully removed.</returns>
-        public bool Delete(Node pos)
+        private bool Delete(Node pos)
         {
             List<Node> allPositions = this.ToList();
 
@@ -138,6 +162,23 @@ namespace DataStructures
             }
 
             return false;
+        }
+
+        public MassDistribution Distribution()
+        {
+            MassDistribution tempDistribution = new MassDistribution();
+
+            if (Bodies.Count == 1)
+            {
+                tempDistribution.Mass = Bodies[0].Mass;
+                tempDistribution.CenterOfMass = Bodies[0].Node.Position;
+            }
+            foreach (Body node in Bodies)
+            {
+
+            }
+
+            return tempDistribution;
         }
 
         /// <summary>
@@ -175,6 +216,19 @@ namespace DataStructures
                 positionsInBounds.AddRange(SouthEast.QueryBounds(bounds));
 
             return positionsInBounds;
+        }
+
+        public List<Body> Bodies
+        {
+            get
+            {
+                return _bodies;
+            }
+
+            set
+            {
+                _bodies = value;
+            }
         }
 
         public List<Node> ToList()

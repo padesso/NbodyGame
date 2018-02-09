@@ -63,7 +63,6 @@
     <Compile Include="Universe.cs" />
     <Compile Include="NBody\Body.cs" />
     <Compile Include="NBody\MassDistribution.cs" />
-    <Compile Include="NBody\Region.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

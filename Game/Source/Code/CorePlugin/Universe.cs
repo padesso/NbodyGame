@@ -20,7 +20,7 @@ namespace NBody
         private int _height;
 
         [DontSerialize]
-        private Region _topRegion;
+        private QuadTree _quadTree;
        
         //Distance threshold
         private float _theta = 0.5f;
@@ -39,13 +39,13 @@ namespace NBody
             if (context == InitContext.Activate)
             {
                 _camera = this.GameObj.ParentScene.FindComponent<Camera>();
-                _topRegion = new Region(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height);
+                _quadTree = new QuadTree(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height);
             }
         }
 
         public bool AddBody(Body body)
         {
-            if (_topRegion.AddBody(body))
+            if (_quadTree.AddBody(body))
                 return true;
             
             return false;
@@ -53,7 +53,7 @@ namespace NBody
 
         public bool RemoveBody(Body body)
         {
-            if(_topRegion.RemoveBody(body))
+            if(_quadTree.RemoveBody(body))
                 return true;
 
             return false;
@@ -77,39 +77,48 @@ namespace NBody
 
         public void Draw(IDrawDevice device)
         {
-            if (ShowRegionDebug)
+            Canvas canvas = new Canvas(device);
+            
+            if (ShowDebug)
             {
-                Canvas canvas = new Canvas(device);
-
                 //Draw the quadtree bounds
-                DrawRegionDebug(_topRegion.QuadTree, device, canvas);
+                DrawQuadTreeDebug(_quadTree, device, canvas);
+            }
 
-                //Draw the bodies
-                List<Body> allBodies = _topRegion.Bodies;
-                foreach (Body body in allBodies)
+            //Draw the bodies
+            List<Body> allBodies = _quadTree.Bodies;
+            foreach (Body body in allBodies)
+            {
+                canvas.FillCircle(body.Node.Position.X, body.Node.Position.Y, 2);
+
+                if (ShowDebug)
                 {
-                    canvas.FillCircle(body.Node.Position.X, body.Node.Position.Y, 2);
+                    canvas.DrawText("P: " + body.Node.Position.ToString() + " | M: " + body.Mass + " | F: " + body.Force.ToString(),
+                        body.Node.Position.X, 
+                        body.Node.Position.Y + 4);
                 }
             }
         }
 
-        private void DrawRegionDebug(QuadTree quad, IDrawDevice device, Canvas canvas)
+        private void DrawQuadTreeDebug(QuadTree quadTree, IDrawDevice device, Canvas canvas)
         {
-            canvas.DrawRect(quad.Bounds.X, quad.Bounds.Y, quad.Bounds.W, quad.Bounds.H);
-            
+            canvas.DrawRect(quadTree.Bounds.X, quadTree.Bounds.Y, quadTree.Bounds.W, quadTree.Bounds.H);
+            MassDistribution dist = quadTree.Distribution();
+            canvas.DrawText("CoM: " + dist.CenterOfMass.ToString() + " | M: " + dist.Mass,
+                            quadTree.Bounds.X + 1, quadTree.Bounds.Y + 1);
 
             //Recursively draw the children of this quad
-            if (quad.NorthWest != null)
-                DrawRegionDebug(quad.NorthWest, device, canvas);
+            if (quadTree.NorthWest != null)
+                DrawQuadTreeDebug(quadTree.NorthWest, device, canvas);
 
-            if (quad.NorthEast != null)
-                DrawRegionDebug(quad.NorthEast, device, canvas);
+            if (quadTree.NorthEast != null)
+                DrawQuadTreeDebug(quadTree.NorthEast, device, canvas);
 
-            if (quad.SouthWest != null)
-                DrawRegionDebug(quad.SouthWest, device, canvas);
+            if (quadTree.SouthWest != null)
+                DrawQuadTreeDebug(quadTree.SouthWest, device, canvas);
 
-            if (quad.SouthEast != null)
-                DrawRegionDebug(quad.SouthEast, device, canvas);
+            if (quadTree.SouthEast != null)
+                DrawQuadTreeDebug(quadTree.SouthEast, device, canvas);
         }
 
         public void OnUpdate()
@@ -123,7 +132,7 @@ namespace NBody
             }
 
             //Rebuild the tree each from to account for movement           
-            List<Body> bodyBuffer = new List<Body>(_topRegion.Bodies);
+            List<Body> bodyBuffer = new List<Body>(_quadTree.Bodies);
             foreach (Body body in bodyBuffer)
             {
                 RemoveBody(body);
@@ -187,7 +196,7 @@ namespace NBody
             }
         }
 
-        public bool ShowRegionDebug
+        public bool ShowDebug
         {
             get
             {
