@@ -43,19 +43,6 @@ namespace NBody
                 _camera = this.GameObj.ParentScene.FindComponent<Camera>();
                 _bodies = new List<Body>();
                 _quadTree = new QuadTree(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height);
-
-                //Random rand = new Random(DateTime.Now.Millisecond);
-                //for (int i = 0; i < 100; i++)
-                //{
-                //    _quadTree.Insert(new Node(rand.Next(-100, 100), rand.Next(-100, 100)));
-                //}
-
-                //_quadTree.Insert(new Node(5, 5));
-                //_quadTree.Insert(new Node(25, 25));
-                //_quadTree.Insert(new Node(55, 55));                
-                //_quadTree.Insert(new Node(175, 75));
-                //_quadTree.Insert(new Node(75, 175));
-                //_quadTree.Insert(new Node(375, 375));
             }
         }
 
@@ -142,8 +129,7 @@ namespace NBody
                 AddBody(newBody);
             }
 
-            //Rebuild the tree each from to account for movement
-            //List<Body> allBodies = _quadTree.QueryBounds(new Rect(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height));
+            //Rebuild the tree each from to account for movement           
             List<Body> bodyBuffer = new List<Body>(_bodies);
             foreach (Body body in bodyBuffer)
             {
@@ -158,7 +144,6 @@ namespace NBody
         {
             _quadTree = null;
         }
-
 
         public float BoundRadius
         {

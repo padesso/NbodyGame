@@ -24,7 +24,7 @@ namespace DataStructures
         }
 
         /// <summary>
-        /// Create the quads as four equal regions in reference to this quad.
+        /// Create the quads as four quadtrees that are equally subdivided in reference to this quad.
         /// </summary>
         private void Subdivide()
         {
@@ -54,20 +54,20 @@ namespace DataStructures
         }
 
         /// <summary>
-        /// Add a position to the quadtree
+        /// Add a node to the quadtree
         /// </summary>
-        /// <param name="position">A Vector to add to the quadtree<./param>
+        /// <param name="node">A Node to add to the quadtree</param>
         /// <returns>True if the insertion was successful.</returns>
-        public bool Insert(Node pos)
+        public bool Insert(Node node)
         {
             // Ignore objects that do not belong in this quad tree
-            if (!this.Bounds.Contains(pos.Position))
+            if (!this.Bounds.Contains(node.Position))
                 return false; // object cannot be added to this quad
 
             //If the quad is not full and it is an external node, fill it
             if (this.Position == null && NorthWest == null)
             {
-                this.Position = pos;
+                this.Position = node;
                 return true;
             }
 
@@ -113,13 +113,12 @@ namespace DataStructures
         }
 
         /// <summary>
-        /// Removes the first position from the quad tree at the position passed.
+        /// Removes the first node from the quad tree at the position passed.
         /// </summary>
-        /// <param name="pos">The position to be removed.</param>
-        /// <returns>A true indicates a position was successfully removed.</returns>
+        /// <param name="pos">The node to be removed.</param>
+        /// <returns>A true indicates a node was successfully removed.</returns>
         public bool Delete(Node pos)
         {
-            //TODO: Optimize this...
             List<Node> allPositions = this.ToList();
 
             if (allPositions.Remove(pos))
@@ -144,8 +143,8 @@ namespace DataStructures
         /// <summary>
         /// Find all points within an axis aligned bounding box.
         /// </summary>
-        /// <param name="bounds">An axis aligned bounding box to find all points in the quadtree.</param>
-        /// <returns>A list of Vectors representing all positions within the AABB passed.</returns>
+        /// <param name="bounds">An rectangle used to find all points in the quadtree.</param>
+        /// <returns>A list of nodes representing all positions within the Rect passed.</returns>
         public List<Node> QueryBounds(Rect bounds)
         {
             List<Node> positionsInBounds = new List<Node>();
