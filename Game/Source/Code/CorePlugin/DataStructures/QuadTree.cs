@@ -200,20 +200,6 @@ namespace DataStructures
 
             return positionsInBounds;
         }
-    
-        public double Mass
-        {
-            get
-            {
-                if(Body != null)
-                {
-                    return Body.Mass;
-                }
-
-                //TODO: sum mass for all quads below this one
-                return 0;
-            }
-        }
 
         public Vector2 CenterOfMass
         {

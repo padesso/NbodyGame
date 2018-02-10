@@ -133,7 +133,7 @@ namespace NBody
         private void DrawQuadTreeDebug(QuadTree quadTree, IDrawDevice device, Canvas canvas)
         {
             canvas.DrawRect(quadTree.Bounds.X, quadTree.Bounds.Y, quadTree.Bounds.W, quadTree.Bounds.H);
-            canvas.DrawText("CoM: " + quadTree.CenterOfMass.ToString() + " | M: " + quadTree.Mass.ToString(),
+            canvas.DrawText("CoM: " + quadTree.CenterOfMass.ToString() + " | M: " + CalculateMass(quadTree).ToString(),
                             quadTree.Bounds.X + 1, quadTree.Bounds.Y + 1);
 
             //Recursively draw the children of this quad
@@ -148,6 +148,32 @@ namespace NBody
 
             if (quadTree.SouthEast != null)
                 DrawQuadTreeDebug(quadTree.SouthEast, device, canvas);
+        }
+
+        public double CalculateMass(QuadTree quadTree)
+        {
+            double totalMass = 0;
+
+            if (quadTree.Body != null)
+            {
+                totalMass = quadTree.Body.Mass;
+            }
+            else
+            {
+                if (quadTree.NorthWest != null)
+                    totalMass += CalculateMass(quadTree.NorthWest);
+
+                if (quadTree.NorthEast != null)
+                    totalMass += CalculateMass(quadTree.NorthEast);
+
+                if (quadTree.SouthWest != null)
+                    totalMass += CalculateMass(quadTree.SouthWest);
+
+                if (quadTree.SouthEast != null)
+                    totalMass += CalculateMass(quadTree.SouthEast);
+            }
+
+            return totalMass;
         }
 
         public void OnUpdate()
