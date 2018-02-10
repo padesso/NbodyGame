@@ -24,7 +24,7 @@
           <Y>0</Y>
           <Z>0</Z>
         </SnapToGridSize>
-        <ActiveState>Duality.Editor.Plugins.CamView.CamViewStates.SceneEditorCamViewState</ActiveState>
+        <ActiveState>Duality.Editor.Plugins.CamView.CamViewStates.GameViewCamViewState</ActiveState>
         <States>
           <State type="Duality.Editor.Plugins.CamView.CamViewStates.RigidBodyEditorCamViewState">
             <ActiveLayers>
@@ -86,7 +86,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--DockPanel configuration file. Author: Weifen Luo, all rights reserved.-->
 <!--!!! AUTOMATICALLY GENERATED FILE. DO NOT MODIFY !!!-->
-<DockPanel FormatVersion="1.0" DockLeftPortion="0.25" DockRightPortion="0.440885416666667" DockTopPortion="0.25" DockBottomPortion="0.25" ActiveDocumentPane="5" ActivePane="0">
+<DockPanel FormatVersion="1.0" DockLeftPortion="0.25" DockRightPortion="0.440885416666667" DockTopPortion="0.25" DockBottomPortion="0.25" ActiveDocumentPane="5" ActivePane="5">
   <Contents Count="6">
     <Content ID="0" PersistString="Duality.Editor.Plugins.CamView.CamView" AutoHidePortion="0.25" IsHidden="False" IsFloat="False" />
     <Content ID="1" PersistString="Duality.Editor.Plugins.ProjectView.ProjectFolderView" AutoHidePortion="0.440885416666667" IsHidden="False" IsFloat="False" />
@@ -139,7 +139,7 @@
     <DockWindow ID="2" DockState="DockRight" ZOrderIndex="1">
       <NestedPanes Count="4">
         <Pane ID="0" RefID="0" PrevPane="-1" Alignment="Bottom" Proportion="0.5" />
-        <Pane ID="1" RefID="2" PrevPane="0" Alignment="Right" Proportion="0.5" />
+        <Pane ID="1" RefID="2" PrevPane="0" Alignment="Right" Proportion="0.583713850837138" />
         <Pane ID="2" RefID="1" PrevPane="0" Alignment="Bottom" Proportion="0.5" />
         <Pane ID="3" RefID="3" PrevPane="2" Alignment="Top" Proportion="0.238904955880724" />
       </NestedPanes>

@@ -21,13 +21,10 @@ namespace DataStructures
 
         private List<Body> _bodies;
 
-        private MassDistribution _massDistribution;
-
         public QuadTree(float topLeftX, float topLeftY, float width, float height)
         {
             this.Bounds = new Rect(topLeftX, topLeftY, width, height);
-            _bodies = new List<Body>();
-            _massDistribution = new MassDistribution(0f, new Vector2(topLeftX + width / 2.0f, topLeftY + height / 2.0f));
+            _bodies = new List<Body>();    
         }
 
         /// <summary>
@@ -167,25 +164,6 @@ namespace DataStructures
             return false;
         }
 
-        public MassDistribution Distribution()
-        {     
-            if (_bodies.Count == 1)
-            {
-                _massDistribution.Mass = _bodies[0].Mass;
-                _massDistribution.CenterOfMass = _bodies[0].Position;
-            }
-            else
-            {
-                foreach (Body body in _bodies)
-                {
-                    _massDistribution.Mass += body.Mass;
-                    _massDistribution.CenterOfMass += _massDistribution.Mass * _massDistribution.CenterOfMass;
-                }
-            }
-
-            return _massDistribution;
-        }
-
         /// <summary>
         /// Find all points within an axis aligned bounding box.
         /// </summary>
@@ -221,6 +199,34 @@ namespace DataStructures
                 positionsInBounds.AddRange(SouthEast.QueryBounds(bounds));
 
             return positionsInBounds;
+        }
+    
+        public double Mass
+        {
+            get
+            {
+                if(Body != null)
+                {
+                    return Body.Mass;
+                }
+
+                //TODO: sum mass for all quads below this one
+                return 0;
+            }
+        }
+
+        public Vector2 CenterOfMass
+        {
+            get
+            {
+                if(Body != null)
+                {
+                    return Body.Position;
+                }
+
+                //TODO: calc center of mass for all quads below this one
+                return Vector2.Zero;
+            }
         }
 
         public List<Body> ToList()

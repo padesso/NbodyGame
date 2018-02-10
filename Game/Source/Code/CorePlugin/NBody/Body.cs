@@ -65,19 +65,7 @@ namespace NBody
             }
 
             set
-            {
-                if (value.X > 1)
-                    value.X = 1;
-
-                if (value.Y > 1)
-                    value.Y = 1;
-
-                if (value.X < -1)
-                    value.X = -1;
-
-                if (value.Y < -1)
-                    value.Y = -1;
-
+            {            
                 _velocity = value;
             }
         }

@@ -15,9 +15,12 @@ namespace NBody
     [RequiredComponent(typeof(Transform))]
     public class Universe : Component, ICmpInitializable, ICmpUpdatable, ICmpRenderer
 	{
+        [DontSerialize]
         Camera _camera;
+
         [DontSerialize]
         private int _width;
+
         [DontSerialize]
         private int _height;
 
@@ -31,16 +34,16 @@ namespace NBody
         public float Theta = 0.5f;
 
         //Time step modifier
-        public float TimeStepModifier = 2.0f;
+        public float TimeStepModifier = 5.0f;
 
         private bool _showQuadTreeBorders = true;
 
         public Universe()
         {
             //Set some defaults
-            Width = 5000;
-            Height = 5000;
-
+            Width = 500;
+            Height = 500;
+            
             _rng = new Random(DateTime.Now.Millisecond);
         }
 
@@ -50,6 +53,21 @@ namespace NBody
             {
                 _camera = this.GameObj.ParentScene.FindComponent<Camera>();                
                 _quadTree = new QuadTree(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height);
+                _camera.GameObj.Transform.Pos = new Vector3(this.GameObj.Transform.Pos.X + Width / 2.0f,
+                                                            this.GameObj.Transform.Pos.Y + Height / 2.0f, 
+                                                            -1 * Width);
+
+                //Let's setup some test data
+                //for (int rows = 0; rows < Height; rows += Width / 10)
+                //{
+                //    for(int cols = 0; cols < Width; cols += Height / 10)
+                //    {
+                //        float randMass = _rng.NextFloat(10000f, 5000000f);
+                //        Body newBody = new Body(this.GameObj.Transform.Pos.X + cols, 
+                //                                this.GameObj.Transform.Pos.Y + rows, 98f, randMass, 10f);
+                //        AddBody(newBody);
+                //    }
+                //}
             }
         }
 
@@ -87,6 +105,8 @@ namespace NBody
 
         public void Draw(IDrawDevice device)
         {
+            //Debug.WriteLine("FPS: " + Time.Fps.ToString());
+
             Canvas canvas = new Canvas(device);
             
             if (ShowDebug)
@@ -113,9 +133,8 @@ namespace NBody
         private void DrawQuadTreeDebug(QuadTree quadTree, IDrawDevice device, Canvas canvas)
         {
             canvas.DrawRect(quadTree.Bounds.X, quadTree.Bounds.Y, quadTree.Bounds.W, quadTree.Bounds.H);
-            MassDistribution dist = quadTree.Distribution();
-            //canvas.DrawText("CoM: " + dist.CenterOfMass.ToString() + " | M: " + dist.Mass,
-            //                quadTree.Bounds.X + 1, quadTree.Bounds.Y + 1);
+            canvas.DrawText("CoM: " + quadTree.CenterOfMass.ToString() + " | M: " + quadTree.Mass.ToString(),
+                            quadTree.Bounds.X + 1, quadTree.Bounds.Y + 1);
 
             //Recursively draw the children of this quad
             if (quadTree.NorthWest != null)
@@ -172,12 +191,12 @@ namespace NBody
                 // TODO: barnes-hut tree pruning
                 body.Velocity += body.Acceleration * Time.TimeMult / TimeStepModifier;
                 body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
-                body.Acceleration = Vector2.Zero;
+                //body.Acceleration = Vector2.Zero;
 
                 Vector2 r = otherBody.Position - body.Position;
                 float dist = r.LengthSquared;
                 Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
-                body.Acceleration += force * otherBody.Mass;
+                body.Acceleration = force * otherBody.Mass;
                 otherBody.Acceleration -= force * body.Mass;
             }
         }
