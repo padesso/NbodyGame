@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NBodyCorePlugin.cs" />
-    <Compile Include="DataStructures\Node.cs" />
     <Compile Include="DataStructures\QuadTree.cs" />
     <Compile Include="Universe.cs" />
     <Compile Include="NBody\Body.cs" />

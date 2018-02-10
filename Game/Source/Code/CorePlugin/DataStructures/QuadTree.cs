@@ -10,21 +10,24 @@ namespace DataStructures
 {
     public class QuadTree
     {
-        private Rect bounds;
+        private Rect _bounds;
 
-        private Node position;
+        private Body _body;
 
-        private QuadTree northWest;
-        private QuadTree northEast;
-        private QuadTree southWest;
-        private QuadTree southEast;
+        private QuadTree _northWest;
+        private QuadTree _northEast;
+        private QuadTree _southWest;
+        private QuadTree _southEast;
 
         private List<Body> _bodies;
+
+        private MassDistribution _massDistribution;
 
         public QuadTree(float topLeftX, float topLeftY, float width, float height)
         {
             this.Bounds = new Rect(topLeftX, topLeftY, width, height);
             _bodies = new List<Body>();
+            _massDistribution = new MassDistribution(0f, new Vector2(topLeftX + width / 2.0f, topLeftY + height / 2.0f));
         }
 
         /// <summary>
@@ -59,9 +62,9 @@ namespace DataStructures
 
         public bool AddBody(Body body)
         {
-            if (Insert(body.Node))
+            if (Insert(body))
             {
-                Bodies.Add(body);
+                _bodies.Add(body);
                 return true;
             }
             return false;
@@ -69,9 +72,9 @@ namespace DataStructures
 
         public bool RemoveBody(Body body)
         {
-            if (Delete(body.Node))
+            if (Delete(body))
             {
-                Bodies.Remove(body);
+                _bodies.Remove(body);
                 return true;
             }
             return false;
@@ -82,16 +85,16 @@ namespace DataStructures
         /// </summary>
         /// <param name="node">A Node to add to the quadtree</param>
         /// <returns>True if the insertion was successful.</returns>
-        private bool Insert(Node node)
+        private bool Insert(Body body)
         {
             // Ignore objects that do not belong in this quad tree
-            if (!this.Bounds.Contains(node.Position))
+            if (!this.Bounds.Contains(body.Position))
                 return false; // object cannot be added to this quad
 
             //If the quad is not full and it is an external node, fill it
-            if (this.Position == null && NorthWest == null)
+            if (this.Body == null && NorthWest == null)
             {
-                this.Position = node;
+                this.Body = body;
                 return true;
             }
 
@@ -101,35 +104,35 @@ namespace DataStructures
                 Subdivide();
 
                 //Shift down the current position as this is now an internal node
-                if (NorthWest.Insert(this.Position))
+                if (NorthWest.Insert(this.Body))
                 {
-                    this.Position = null;
+                    this.Body = null;
                 }
-                else if (NorthEast.Insert(this.Position))
+                else if (NorthEast.Insert(this.Body))
                 {
-                    this.Position = null;
+                    this.Body = null;
                 }
-                else if (SouthWest.Insert(this.Position))
+                else if (SouthWest.Insert(this.Body))
                 {
-                    this.Position = null;
+                    this.Body = null;
                 }
-                else if (SouthEast.Insert(this.Position))
+                else if (SouthEast.Insert(this.Body))
                 {
-                    this.Position = null;
+                    this.Body = null;
                 }
             }
 
             //Attempt to insert new node
-            if (NorthWest.Insert(node))
+            if (NorthWest.Insert(body))
                 return true;
 
-            if (NorthEast.Insert(node))
+            if (NorthEast.Insert(body))
                 return true;
 
-            if (SouthWest.Insert(node))
+            if (SouthWest.Insert(body))
                 return true;
 
-            if (SouthEast.Insert(node))
+            if (SouthEast.Insert(body))
                 return true;
            
             // The point cannot be inserted
@@ -141,21 +144,21 @@ namespace DataStructures
         /// </summary>
         /// <param name="pos">The node to be removed.</param>
         /// <returns>A true indicates a node was successfully removed.</returns>
-        private bool Delete(Node pos)
+        private bool Delete(Body body)
         {
-            List<Node> allPositions = this.ToList();
+            List<Body> allBodies = this.ToList();
 
-            if (allPositions.Remove(pos))
+            if (allBodies.Remove(body))
             {
-                Position = null;
+                this.Body = null;
                 NorthWest = null;
                 NorthEast = null;
                 SouthWest = null;
                 SouthEast = null;
 
-                foreach (Node position in allPositions)
+                foreach (Body tempBody in allBodies)
                 {
-                    Insert(position);
+                    Insert(tempBody);
                 }
 
                 return true;
@@ -165,20 +168,22 @@ namespace DataStructures
         }
 
         public MassDistribution Distribution()
-        {
-            MassDistribution tempDistribution = new MassDistribution();
-
-            if (Bodies.Count == 1)
+        {     
+            if (_bodies.Count == 1)
             {
-                tempDistribution.Mass = Bodies[0].Mass;
-                tempDistribution.CenterOfMass = Bodies[0].Node.Position;
+                _massDistribution.Mass = _bodies[0].Mass;
+                _massDistribution.CenterOfMass = _bodies[0].Position;
             }
-            foreach (Body node in Bodies)
+            else
             {
-
+                foreach (Body body in _bodies)
+                {
+                    _massDistribution.Mass += body.Mass;
+                    _massDistribution.CenterOfMass += _massDistribution.Mass * _massDistribution.CenterOfMass;
+                }
             }
 
-            return tempDistribution;
+            return _massDistribution;
         }
 
         /// <summary>
@@ -186,9 +191,9 @@ namespace DataStructures
         /// </summary>
         /// <param name="bounds">An rectangle used to find all points in the quadtree.</param>
         /// <returns>A list of nodes representing all positions within the Rect passed.</returns>
-        public List<Node> QueryBounds(Rect bounds)
+        public List<Body> QueryBounds(Rect bounds)
         {
-            List<Node> positionsInBounds = new List<Node>();
+            List<Body> positionsInBounds = new List<Body>();
 
             //Get out early if the bounds passed isn't in this quad (or a child quad)
             if (!this.Bounds.Intersects(bounds))
@@ -196,9 +201,9 @@ namespace DataStructures
 
             // Terminate here, if there are no children (external node)
             // We only need to check one since the subdivide method instantiates all sub-quads
-            if (this.Position != null && NorthWest == null)
+            if (this.Body != null && NorthWest == null)
             {
-                positionsInBounds.Add(this.Position);
+                positionsInBounds.Add(this.Body);
                 return positionsInBounds;
             }
 
@@ -218,57 +223,44 @@ namespace DataStructures
             return positionsInBounds;
         }
 
-        public List<Body> Bodies
-        {
-            get
-            {
-                return _bodies;
-            }
-
-            set
-            {
-                _bodies = value;
-            }
-        }
-
-        public List<Node> ToList()
+        public List<Body> ToList()
         {
             return this.QueryBounds(this.Bounds);
         }
 
         public QuadTree NorthWest
         {
-            get { return northWest;  }
-            set { northWest = value; }
+            get { return _northWest;  }
+            set { _northWest = value; }
         }
 
         public QuadTree NorthEast
         {
-            get { return northEast; }
-            set { northEast = value; }
+            get { return _northEast; }
+            set { _northEast = value; }
         }
 
         public QuadTree SouthWest
         {
-            get { return southWest; }
-            set { southWest = value; }
+            get { return _southWest; }
+            set { _southWest = value; }
         }
         public QuadTree SouthEast
         {
-            get { return southEast; }
-            set { southEast = value; }
+            get { return _southEast; }
+            set { _southEast = value; }
         }
 
-        public Node Position
+        public Body Body
         {
-            get { return position; }
-            set { position = value; }
+            get { return _body; }
+            set { _body = value; }
         }
 
         public Rect Bounds
         {
-            get { return bounds; }
-            set { bounds = value; }
+            get { return _bounds; }
+            set { _bounds = value; }
         }
     }
 }

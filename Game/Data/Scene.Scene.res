@@ -21,14 +21,14 @@
             <ignoreParent dataType="Bool">false</ignoreParent>
             <parentTransform />
             <pos dataType="Struct" type="Duality.Vector3">
-              <X dataType="Float">0</X>
-              <Y dataType="Float">0</Y>
-              <Z dataType="Float">-500</Z>
+              <X dataType="Float">2500</X>
+              <Y dataType="Float">2500</Y>
+              <Z dataType="Float">-3000</Z>
             </pos>
             <posAbs dataType="Struct" type="Duality.Vector3">
-              <X dataType="Float">0</X>
-              <Y dataType="Float">0</Y>
-              <Z dataType="Float">-500</Z>
+              <X dataType="Float">2500</X>
+              <Y dataType="Float">2500</Y>
+              <Z dataType="Float">-3000</Z>
             </posAbs>
             <scale dataType="Float">1</scale>
             <scaleAbs dataType="Float">1</scaleAbs>
@@ -133,10 +133,12 @@
             <velAbs dataType="Struct" type="Duality.Vector3" />
           </item>
           <item dataType="Struct" type="NBody.Universe" id="2098785620">
-            <_height dataType="Int">500</_height>
-            <_width dataType="Int">500</_width>
+            <_camera dataType="ObjectRef">3104990302</_camera>
+            <_showQuadTreeBorders dataType="Bool">true</_showQuadTreeBorders>
             <active dataType="Bool">true</active>
             <gameobj dataType="ObjectRef">3917487887</gameobj>
+            <Theta dataType="Float">0.5</Theta>
+            <TimeStepModifier dataType="Float">2</TimeStepModifier>
           </item>
         </_items>
         <_size dataType="Int">2</_size>

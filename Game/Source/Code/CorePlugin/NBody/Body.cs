@@ -9,17 +9,23 @@ using DataStructures;
 
 namespace NBody
 {
-    public struct Body
+    public class Body
     {
-        private Node _node;
+        private Vector2 _position;
+        private Vector2 _velocity;
         private float _mass;
-        private Vector2 _force;
+        private Vector2 _acceleration;
+        private float _gravity;
+        private float _radius;
 
-        public Body(float x, float y, float mass)
+        public Body(float x, float y, float mass, float gravity, float radius)
         {
-            _node = new Node(x, y);
+            _position = new Vector2(x, y);
+            _velocity = Vector2.Zero;
             _mass = mass;
-            _force = Vector2.One;
+            _acceleration = Vector2.Zero;
+            _gravity = gravity;
+            _radius = radius;
         }
 
         public bool IsVisible(IDrawDevice device)
@@ -38,6 +44,44 @@ namespace NBody
             return true;
         }
 
+        public Vector2 Position
+        {
+            get
+            {
+                return _position;
+            }
+
+            set
+            {
+                _position = value;
+            }
+        }
+
+        public Vector2 Velocity
+        {
+            get
+            {
+                return _velocity;
+            }
+
+            set
+            {
+                if (value.X > 1)
+                    value.X = 1;
+
+                if (value.Y > 1)
+                    value.Y = 1;
+
+                if (value.X < -1)
+                    value.X = -1;
+
+                if (value.Y < -1)
+                    value.Y = -1;
+
+                _velocity = value;
+            }
+        }
+
         public float Mass
         {
             get
@@ -51,30 +95,43 @@ namespace NBody
             }
         }
 
-        public Node Node
+        public Vector2 Acceleration
         {
             get
             {
-                return _node;
+                return _acceleration;
             }
 
             set
             {
-                _node = value;
+                _acceleration = value;
             }
         }
 
-        public Vector2 Force
+        public float Gravity
         {
             get
             {
-                return _force;
+                return _gravity;
             }
 
             set
             {
-                _force = value;
+                _gravity = value;
             }
         }
+
+        public float Radius
+        {
+            get
+            {
+                return _radius;
+            }
+
+            set
+            {
+                _radius = value;
+            }
+        } 
     }
 }

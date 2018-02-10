@@ -16,29 +16,39 @@ namespace NBody
     public class Universe : Component, ICmpInitializable, ICmpUpdatable, ICmpRenderer
 	{
         Camera _camera;
+        [DontSerialize]
         private int _width;
+        [DontSerialize]
         private int _height;
 
         [DontSerialize]
         private QuadTree _quadTree;
-       
+
+        [DontSerialize]
+        private Random _rng;
+
         //Distance threshold
-        private float _theta = 0.5f;
+        public float Theta = 0.5f;
+
+        //Time step modifier
+        public float TimeStepModifier = 2.0f;
 
         private bool _showQuadTreeBorders = true;
 
         public Universe()
         {
             //Set some defaults
-            Width = 500;
-            Height = 500;
+            Width = 5000;
+            Height = 5000;
+
+            _rng = new Random(DateTime.Now.Millisecond);
         }
 
         public void OnInit(InitContext context)
         {
             if (context == InitContext.Activate)
             {
-                _camera = this.GameObj.ParentScene.FindComponent<Camera>();
+                _camera = this.GameObj.ParentScene.FindComponent<Camera>();                
                 _quadTree = new QuadTree(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height);
             }
         }
@@ -86,16 +96,16 @@ namespace NBody
             }
 
             //Draw the bodies
-            List<Body> allBodies = _quadTree.Bodies;
+            List<Body> allBodies = _quadTree.ToList();
             foreach (Body body in allBodies)
             {
-                canvas.FillCircle(body.Node.Position.X, body.Node.Position.Y, 2);
+                canvas.FillCircle(body.Position.X, body.Position.Y, body.Radius);
 
                 if (ShowDebug)
                 {
-                    canvas.DrawText("P: " + body.Node.Position.ToString() + " | M: " + body.Mass + " | F: " + body.Force.ToString(),
-                        body.Node.Position.X, 
-                        body.Node.Position.Y + 4);
+                    canvas.DrawText("M: " + body.Mass + " | A: " + body.Acceleration.ToString() + " | G: " + body.Gravity.ToString(),
+                        body.Position.X, 
+                        body.Position.Y + 4);
                 }
             }
         }
@@ -104,8 +114,8 @@ namespace NBody
         {
             canvas.DrawRect(quadTree.Bounds.X, quadTree.Bounds.Y, quadTree.Bounds.W, quadTree.Bounds.H);
             MassDistribution dist = quadTree.Distribution();
-            canvas.DrawText("CoM: " + dist.CenterOfMass.ToString() + " | M: " + dist.Mass,
-                            quadTree.Bounds.X + 1, quadTree.Bounds.Y + 1);
+            //canvas.DrawText("CoM: " + dist.CenterOfMass.ToString() + " | M: " + dist.Mass,
+            //                quadTree.Bounds.X + 1, quadTree.Bounds.Y + 1);
 
             //Recursively draw the children of this quad
             if (quadTree.NorthWest != null)
@@ -123,28 +133,58 @@ namespace NBody
 
         public void OnUpdate()
         {
-            //Add a node when mouse is clicked
+            //Add a planet when mouse is clicked
             if (DualityApp.Mouse.ButtonHit(MouseButton.Left))
             {
                 Vector3 mouseObjPos = _camera.GetSpaceCoord(DualityApp.Mouse.Pos);
-                Body newBody = new Body(mouseObjPos.X, mouseObjPos.Y, 100f);
+                float massSize = _rng.NextFloat(10f, 2500f); 
+                Body newBody = new Body(mouseObjPos.X, mouseObjPos.Y, 5.9736f, massSize, 10f);
+                AddBody(newBody);
+            }
+
+            //Add a star
+            if (DualityApp.Mouse.ButtonHit(MouseButton.Right))
+            {
+                Vector3 mouseObjPos = _camera.GetSpaceCoord(DualityApp.Mouse.Pos);
+                float massSize = _rng.NextFloat(100000f, 5000000f);
+                Body newBody = new Body(mouseObjPos.X, mouseObjPos.Y, 59736f, massSize, 50f);
                 AddBody(newBody);
             }
 
             //Rebuild the tree each from to account for movement           
-            List<Body> bodyBuffer = new List<Body>(_quadTree.Bodies);
+            List<Body> bodyBuffer = _quadTree.ToList();
             foreach (Body body in bodyBuffer)
             {
                 RemoveBody(body);
-                body.Node.Position = new Vector2(body.Node.Position.X + body.Force.X * Duality.Time.TimeMult,
-                                                    body.Node.Position.Y + body.Force.Y * Duality.Time.TimeMult);
+                ProcessBodies(body, bodyBuffer);
                 AddBody(body);
+            }
+        }
+
+        private void ProcessBodies(Body body, List<Body> bodies)
+        {
+            //brute force...  implement tree pruning here
+            foreach(Body otherBody in bodies)
+            {
+                if (body == otherBody)
+                    continue;
+
+                // TODO: barnes-hut tree pruning
+                body.Velocity += body.Acceleration * Time.TimeMult / TimeStepModifier;
+                body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
+                body.Acceleration = Vector2.Zero;
+
+                Vector2 r = otherBody.Position - body.Position;
+                float dist = r.LengthSquared;
+                Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
+                body.Acceleration += force * otherBody.Mass;
+                otherBody.Acceleration -= force * body.Mass;
             }
         }
 
         public void OnShutdown(ShutdownContext context)
         {
-            
+            //TODO: clean up
         }
 
         public float BoundRadius

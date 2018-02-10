@@ -14,14 +14,14 @@
             Create the quads as four quadtrees that are equally subdivided in reference to this quad.
             </summary>
         </member>
-        <member name="M:DataStructures.QuadTree.Insert(DataStructures.Node)">
+        <member name="M:DataStructures.QuadTree.Insert(NBody.Body)">
             <summary>
             Add a node to the quadtree
             </summary>
             <param name="node">A Node to add to the quadtree</param>
             <returns>True if the insertion was successful.</returns>
         </member>
-        <member name="M:DataStructures.QuadTree.Delete(DataStructures.Node)">
+        <member name="M:DataStructures.QuadTree.Delete(NBody.Body)">
             <summary>
             Removes the first node from the quad tree at the position passed.
             </summary>
