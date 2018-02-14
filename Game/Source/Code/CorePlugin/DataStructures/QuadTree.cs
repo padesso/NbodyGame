@@ -201,20 +201,6 @@ namespace DataStructures
             return positionsInBounds;
         }
 
-        public Vector2 CenterOfMass
-        {
-            get
-            {
-                if(Body != null)
-                {
-                    return Body.Position;
-                }
-
-                //TODO: calc center of mass for all quads below this one
-                return Vector2.Zero;
-            }
-        }
-
         public List<Body> ToList()
         {
             return this.QueryBounds(this.Bounds);

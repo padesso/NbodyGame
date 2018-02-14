@@ -36,7 +36,7 @@ namespace NBody
         //Time step modifier
         public float TimeStepModifier = 5.0f;
 
-        private bool _showQuadTreeBorders = true;
+        private bool _showDebug = true;
 
         public Universe()
         {
@@ -123,9 +123,12 @@ namespace NBody
 
                 if (ShowDebug)
                 {
-                    canvas.DrawText("M: " + body.Mass + " | A: " + body.Acceleration.ToString() + " | G: " + body.Gravity.ToString(),
-                        body.Position.X, 
-                        body.Position.Y + 4);
+                    //canvas.DrawText("M: " + body.Mass + " | A: " + body.Acceleration.ToString() + " | G: " + body.Gravity.ToString(),
+                    //    body.Position.X,
+                    //    body.Position.Y + 4);
+
+                    //TODO: why isn't this drawing?
+                    //VisualLog.Default.DrawText(new Vector3(body.Position.X + 1, body.Position.Y + 4, 0), "M: " + body.Mass + " | A: " + body.Acceleration.ToString() + " | G: " + body.Gravity.ToString());
                 }
             }
         }
@@ -133,8 +136,11 @@ namespace NBody
         private void DrawQuadTreeDebug(QuadTree quadTree, IDrawDevice device, Canvas canvas)
         {
             canvas.DrawRect(quadTree.Bounds.X, quadTree.Bounds.Y, quadTree.Bounds.W, quadTree.Bounds.H);
-            canvas.DrawText("CoM: " + quadTree.CenterOfMass.ToString() + " | M: " + CalculateMass(quadTree).ToString(),
+            canvas.DrawText("CoM: " + CalculateCenterOfMass(quadTree).ToString() + " | M: " + CalculateMass(quadTree).ToString(),
                             quadTree.Bounds.X + 1, quadTree.Bounds.Y + 1);
+
+            Vector3 screenPos = _camera.GetScreenCoord(new Vector3(quadTree.Bounds.X + 1, quadTree.Bounds.Y + 1, 0));
+            //VisualLog.Default.DrawText(screenPos.X, screenPos.Y, "CoM: " + CalculateCenterOfMass(quadTree).ToString() + " | M: " + CalculateMass(quadTree).ToString());
 
             //Recursively draw the children of this quad
             if (quadTree.NorthWest != null)
@@ -176,6 +182,50 @@ namespace NBody
             return totalMass;
         }
 
+        public Vector2 CalculateCenterOfMass(QuadTree quadTree)
+        {
+            /*
+            x = m1*x1 + m2*x2 + ... / m1 + m2  + ...
+            y = m1*y1 + m2*y2 + ... / m1 + m2  + ...
+            */
+
+            List<Body> treeBodies = quadTree.ToList();
+
+            float comX = 0f;
+            float comY = 0f;
+
+            foreach (Body body in treeBodies)
+            {
+                comX += body.Mass * body.Position.X;
+                comY += body.Mass * body.Position.Y;
+            }
+
+            float totalMass = (float)CalculateMass(quadTree);
+
+            Vector2 centerOfMass = new Vector2(comX / totalMass, comY / totalMass);
+
+            if (quadTree.Body != null)
+            {
+                centerOfMass = quadTree.Body.Position;
+            }
+            else
+            {
+                if (quadTree.NorthWest != null)
+                    centerOfMass = CalculateCenterOfMass(quadTree.NorthWest);
+
+                if (quadTree.NorthEast != null)
+                    centerOfMass = CalculateCenterOfMass(quadTree.NorthEast);
+
+                if (quadTree.SouthWest != null)
+                    centerOfMass = CalculateCenterOfMass(quadTree.SouthWest);
+
+                if (quadTree.SouthEast != null)
+                    centerOfMass = CalculateCenterOfMass(quadTree.SouthEast);
+            }
+
+            return centerOfMass;
+        }
+
         public void OnUpdate()
         {
             //Add a planet when mouse is clicked
@@ -202,8 +252,12 @@ namespace NBody
             {
                 RemoveBody(body);
                 ProcessBodies(body, bodyBuffer);
-                AddBody(body);
+                AddBody(body);                
             }
+
+            //TODO: remove mass calc???
+            //CalculateMass(_quadTree);
+            //CalculateCenterOfMass(_quadTree);
         }
 
         private void ProcessBodies(Body body, List<Body> bodies)
@@ -285,12 +339,12 @@ namespace NBody
         {
             get
             {
-                return _showQuadTreeBorders;
+                return _showDebug;
             }
 
             set
             {
-                _showQuadTreeBorders = value;
+                _showDebug = value;
             }
         }
     }
