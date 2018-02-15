@@ -240,5 +240,46 @@ namespace DataStructures
             get { return _bounds; }
             set { _bounds = value; }
         }
+
+        public Vector2 CenterOfMass
+        {
+            get
+            {
+                List<Body> treeBodies = ToList();
+
+                float comX = 0f;
+                float comY = 0f;
+
+                float totalMass = 0f;
+
+                foreach (Body body in treeBodies)
+                {
+                    totalMass += body.Mass;
+                    comX += body.Mass * body.Position.X;
+                    comY += body.Mass * body.Position.Y;
+                }
+
+                Vector2 centerOfMass = new Vector2(comX / totalMass, comY / totalMass);
+
+                return centerOfMass;
+            }
+        }
+
+        public double Mass
+        {
+            get
+            {
+                List<Body> treeBodies = ToList();
+
+                float totalMass = 0f;
+
+                foreach (Body body in treeBodies)
+                {
+                    totalMass += body.Mass;
+                }
+
+                return totalMass;
+            }
+        }
     }
 }
