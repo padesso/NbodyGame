@@ -58,16 +58,24 @@ namespace NBody
                                                             -1 * Width);
 
                 //Let's setup some test data
-                //for (int rows = 0; rows < Height; rows += Width / 10)
-                //{
-                //    for(int cols = 0; cols < Width; cols += Height / 10)
-                //    {
-                //        float randMass = _rng.NextFloat(10000f, 5000000f);
-                //        Body newBody = new Body(this.GameObj.Transform.Pos.X + cols, 
-                //                                this.GameObj.Transform.Pos.Y + rows, 98f, randMass, 10f);
-                //        AddBody(newBody);
-                //    }
-                //}
+                for (int rows = 0; rows < Height; rows += Width / 10)
+                {
+                    for (int cols = 0; cols < Width; cols += Height / 10)
+                    {
+                        float randMass = _rng.NextFloat(1f, 5f);
+                        Body newBody = new Body(this.GameObj.Transform.Pos.X + cols,
+                                                this.GameObj.Transform.Pos.Y + rows, randMass, 9.8f, 10f);
+                        AddBody(newBody);
+                    }
+                }
+
+                //Body newBody = new Body(0, -50, 100f, 9.8f, 10f);
+                //newBody.Velocity = new Vector2(1, 0);
+                //Body newBody1 = new Body(0, 50, 100f, 9.8f, 10f);
+                //newBody1.Velocity = new Vector2(-1, 0);
+                //AddBody(newBody);
+                //AddBody(newBody1);
+
             }
         }
 
@@ -105,8 +113,6 @@ namespace NBody
 
         public void Draw(IDrawDevice device)
         {
-            //Debug.WriteLine("FPS: " + Time.Fps.ToString());
-
             Canvas canvas = new Canvas(device);
             
             if (ShowDebug)
@@ -126,9 +132,6 @@ namespace NBody
                     canvas.DrawText("P: " + body.Position + " | M: " + body.Mass + " | A: " + body.Acceleration.ToString() + " | G: " + body.Gravity.ToString(),
                         body.Position.X,
                         body.Position.Y + 4);
-
-                    //TODO: why isn't this drawing?
-                    //VisualLog.Default.DrawText(new Vector3(body.Position.X + 1, body.Position.Y + 4, 0), "M: " + body.Mass + " | A: " + body.Acceleration.ToString() + " | G: " + body.Gravity.ToString());
                 }
             }
         }
@@ -158,6 +161,11 @@ namespace NBody
 
         public void OnUpdate()
         {
+
+#if DEBUG
+            VisualLog.Default.DrawText(new Vector2(3, 3), "FPS: " + Time.Fps.ToString());
+#endif
+
             //Add a planet when mouse is clicked
             if (DualityApp.Mouse.ButtonHit(MouseButton.Left))
             {
@@ -176,12 +184,12 @@ namespace NBody
                 AddBody(newBody);
             }
 
-            //Rebuild the tree each from to account for movement           
+            //Rebuild the tree to account for movement           
             List<Body> bodyBuffer = _quadTree.ToList();
             foreach (Body body in bodyBuffer)
             {
                 RemoveBody(body);
-                ProcessBodies(body, bodyBuffer);
+                ProcessBodies(body, _quadTree);
                 AddBody(body);                
             }
 
@@ -189,25 +197,54 @@ namespace NBody
             //CalculateCenterOfMass(_quadTree);
         }
 
-        private void ProcessBodies(Body body, List<Body> bodies)
+        private void ProcessBodies(Body body, QuadTree quadTree)
         {
-            //brute force...
-            foreach(Body otherBody in bodies)
-            {
-                if (body == otherBody)
-                    continue;
+            //get all bodies in simulation
 
-                // TODO: barnes-hut tree pruning
+            if (quadTree.Body != null) //external node
+            {
+                if (body == quadTree.Body) //Don't compare to self
+                    return;
+
                 body.Velocity += body.Acceleration * Time.TimeMult / TimeStepModifier;
                 body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
-                //body.Acceleration = Vector2.Zero;
 
-                Vector2 r = otherBody.Position - body.Position;
+                Vector2 r = quadTree.Body.Position - body.Position;
                 float dist = r.LengthSquared;
                 Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
-                body.Acceleration = force * otherBody.Mass;
-                otherBody.Acceleration -= force * body.Mass;
+                body.Acceleration = force * quadTree.Body.Mass;
+                quadTree.Body.Acceleration -= force * body.Mass;
             }
+            else if (quadTree.Bounds.W / Distance(body.Position, quadTree.CenterOfMass) < Theta)
+            {
+                body.Velocity += body.Acceleration * Time.TimeMult / TimeStepModifier;
+                body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
+
+                Vector2 r = quadTree.CenterOfMass - body.Position;
+                float dist = r.LengthSquared;
+                Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
+                body.Acceleration = force * (float)quadTree.Mass;
+            }
+            else
+            {
+                if (quadTree.NorthWest != null)
+                    ProcessBodies(body, quadTree.NorthWest);
+
+                if (quadTree.NorthEast != null)
+                    ProcessBodies(body, quadTree.NorthEast);
+
+                if (quadTree.SouthWest != null)
+                    ProcessBodies(body, quadTree.SouthWest);
+
+                if (quadTree.SouthEast != null)
+                    ProcessBodies(body, quadTree.SouthEast);
+            }
+        }
+
+        private float Distance(Vector2 position1, Vector2 position2)
+        {
+            Vector2 r = position1 - position2;
+            return r.LengthSquared;
         }
 
         public void OnShutdown(ShutdownContext context)
