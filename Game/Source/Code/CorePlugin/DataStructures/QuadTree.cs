@@ -21,6 +21,9 @@ namespace DataStructures
 
         private List<Body> _bodies;
 
+        private float _mass;
+        private Vector2 _centerOfMass;
+
         public QuadTree(float topLeftX, float topLeftY, float width, float height)
         {
             this.Bounds = new Rect(topLeftX, topLeftY, width, height);
@@ -91,6 +94,9 @@ namespace DataStructures
             //If the quad is not full and it is an external node, fill it
             if (this.Body == null && NorthWest == null)
             {
+                //External node, so just set mass and CoM
+                this.Mass = body.Mass;
+                this.CenterOfMass = body.Position;
                 this.Body = body;
                 return true;
             }
@@ -100,9 +106,14 @@ namespace DataStructures
             {
                 Subdivide();
 
+                //Internal node so add mass of any node passing through it
+                this.Mass += body.Mass;
+
+                CenterOfMass = new Vector2((CenterOfMass.X + body.Mass * body.Position.X) / Mass, (CenterOfMass.Y + body.Mass * body.Position.Y) / Mass);
+
                 //Shift down the current position as this is now an internal node
                 if (NorthWest.Insert(this.Body))
-                {
+                {                    
                     this.Body = null;
                 }
                 else if (NorthEast.Insert(this.Body))
@@ -241,44 +252,41 @@ namespace DataStructures
             set { _bounds = value; }
         }
 
+        //TODO: move to the insert process
         public Vector2 CenterOfMass
         {
             get
+            {               
+                return _centerOfMass;
+            }
+
+            set
             {
-                List<Body> treeBodies = ToList();
-
-                float comX = 0f;
-                float comY = 0f;
-
-                float totalMass = 0f;
-
-                foreach (Body body in treeBodies)
-                {
-                    totalMass += body.Mass;
-                    comX += body.Mass * body.Position.X;
-                    comY += body.Mass * body.Position.Y;
-                }
-
-                Vector2 centerOfMass = new Vector2(comX / totalMass, comY / totalMass);
-
-                return centerOfMass;
+                _centerOfMass = value;
             }
         }
 
-        public double Mass
+        public float Mass
         {
             get
             {
-                List<Body> treeBodies = ToList();
+                return _mass;
+            }
 
-                float totalMass = 0f;
-
-                foreach (Body body in treeBodies)
+            set
+            {
+                if(value <= 0)
                 {
-                    totalMass += body.Mass;
+                    _mass = float.MinValue;
                 }
-
-                return totalMass;
+                else if(value >= float.MaxValue)
+                {
+                    _mass = float.MaxValue;
+                }
+                else
+                {
+                    _mass = value;
+                }
             }
         }
     }

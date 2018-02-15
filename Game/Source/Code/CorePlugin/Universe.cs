@@ -34,7 +34,7 @@ namespace NBody
         public float Theta = 0.5f;
 
         //Time step modifier
-        public float TimeStepModifier = 5.0f;
+        public float TimeStepModifier = 1.0f;
 
         private bool _showDebug = true;
 
@@ -58,13 +58,14 @@ namespace NBody
                                                             -1 * Width);
 
                 //Let's setup some test data
-                for (int rows = 0; rows < Height; rows += Width / 10)
+                for (int rows = 0; rows < Height; rows += Height / 25)
                 {
-                    for (int cols = 0; cols < Width; cols += Height / 10)
+                    for (int cols = 0; cols < Width; cols += Width / 25)
                     {
                         float randMass = _rng.NextFloat(1f, 5f);
                         Body newBody = new Body(this.GameObj.Transform.Pos.X + cols,
                                                 this.GameObj.Transform.Pos.Y + rows, randMass, 9.8f, 10f);
+                        newBody.Velocity = new Vector2(1, 0);
                         AddBody(newBody);
                     }
                 }
@@ -75,7 +76,6 @@ namespace NBody
                 //newBody1.Velocity = new Vector2(-1, 0);
                 //AddBody(newBody);
                 //AddBody(newBody1);
-
             }
         }
 
@@ -142,9 +142,6 @@ namespace NBody
             canvas.DrawText("CoM: " + quadTree.CenterOfMass.ToString() + " | M: " + quadTree.Mass.ToString(),
                             quadTree.Bounds.CenterX, quadTree.Bounds.CenterY);
 
-            //Vector3 screenPos = _camera.GetScreenCoord(new Vector3(quadTree.Bounds.X + 1, quadTree.Bounds.Y + 1, 0));
-            //VisualLog.Default.DrawText(screenPos.X, screenPos.Y, "CoM: " + CalculateCenterOfMass(quadTree).ToString() + " | M: " + CalculateMass(quadTree).ToString());
-
             //Recursively draw the children of this quad
             if (quadTree.NorthWest != null)
                 DrawQuadTreeDebug(quadTree.NorthWest, device, canvas);
@@ -161,9 +158,9 @@ namespace NBody
 
         public void OnUpdate()
         {
-
 #if DEBUG
-            VisualLog.Default.DrawText(new Vector2(3, 3), "FPS: " + Time.Fps.ToString());
+            VisualLog.Default.DrawText(new Vector2(3, 3), "Bodies: " + _quadTree.ToList().Count);
+            VisualLog.Default.DrawText(new Vector2(3, 15), "FPS: " + Time.Fps.ToString());
 #endif
 
             //Add a planet when mouse is clicked
@@ -192,15 +189,10 @@ namespace NBody
                 ProcessBodies(body, _quadTree);
                 AddBody(body);                
             }
-
-            //CalculateMass(_quadTree);
-            //CalculateCenterOfMass(_quadTree);
         }
 
         private void ProcessBodies(Body body, QuadTree quadTree)
         {
-            //get all bodies in simulation
-
             if (quadTree.Body != null) //external node
             {
                 if (body == quadTree.Body) //Don't compare to self
@@ -210,22 +202,22 @@ namespace NBody
                 body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
 
                 Vector2 r = quadTree.Body.Position - body.Position;
-                float dist = r.LengthSquared;
+                float dist = Distance(quadTree.CenterOfMass, body.Position);
                 Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
                 body.Acceleration = force * quadTree.Body.Mass;
                 quadTree.Body.Acceleration -= force * body.Mass;
             }
-            else if (quadTree.Bounds.W / Distance(body.Position, quadTree.CenterOfMass) < Theta)
+            else if (quadTree.Bounds.W / Distance(body.Position, quadTree.CenterOfMass) < Theta)  //Treat the quadtree as a group of nodes
             {
                 body.Velocity += body.Acceleration * Time.TimeMult / TimeStepModifier;
                 body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
 
                 Vector2 r = quadTree.CenterOfMass - body.Position;
-                float dist = r.LengthSquared;
+                float dist = Distance(quadTree.CenterOfMass, body.Position);
                 Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
-                body.Acceleration = force * (float)quadTree.Mass;
+                body.Acceleration = force * quadTree.Mass;
             }
-            else
+            else //Recurse down and repeat process
             {
                 if (quadTree.NorthWest != null)
                     ProcessBodies(body, quadTree.NorthWest);
@@ -243,8 +235,8 @@ namespace NBody
 
         private float Distance(Vector2 position1, Vector2 position2)
         {
-            Vector2 r = position1 - position2;
-            return r.LengthSquared;
+            //Vector2 r = position1 - position2;
+            return (float)Math.Sqrt(Math.Pow(position2.X - position1.X, 2) + Math.Pow(position2.Y - position1.Y, 2));
         }
 
         public void OnShutdown(ShutdownContext context)
