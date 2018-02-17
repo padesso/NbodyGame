@@ -30,20 +30,28 @@ namespace NBody
         [DontSerialize]
         private Random _rng;
 
+#if DEBUG
+        [DontSerialize]
+        Stopwatch _perfTimer;
+#endif
+
         //Distance threshold
         public float Theta = 0.5f;
 
         //Time step modifier
         public float TimeStepModifier = 1.0f;
 
-        private bool _showDebug = true;
+        private bool _showDebug = false;
 
         public Universe()
         {
             //Set some defaults
-            Width = 500;
-            Height = 500;
-            
+            Width = 5000;
+            Height = 5000;
+#if DEBUG
+            _perfTimer = new Stopwatch();
+#endif
+
             _rng = new Random(DateTime.Now.Millisecond);
         }
 
@@ -54,18 +62,18 @@ namespace NBody
                 _camera = this.GameObj.ParentScene.FindComponent<Camera>();                
                 _quadTree = new QuadTree(this.GameObj.Transform.Pos.X, this.GameObj.Transform.Pos.Y, Width, Height);
                 _camera.GameObj.Transform.Pos = new Vector3(this.GameObj.Transform.Pos.X + Width / 2.0f,
-                                                            this.GameObj.Transform.Pos.Y + Height / 2.0f, 
+                                                            this.GameObj.Transform.Pos.Y + Height / 2.0f,
                                                             -1 * Width);
 
                 //Let's setup some test data
-                for (int rows = 0; rows < Height; rows += Height / 25)
+                for (int rows = 2000; rows < 3000; rows += 100)
                 {
-                    for (int cols = 0; cols < Width; cols += Width / 25)
+                    for (int cols = 2000; cols < 3000; cols += 100)
                     {
                         float randMass = _rng.NextFloat(1f, 5f);
                         Body newBody = new Body(this.GameObj.Transform.Pos.X + cols,
                                                 this.GameObj.Transform.Pos.Y + rows, randMass, 9.8f, 10f);
-                        newBody.Velocity = new Vector2(1, 0);
+                        //newBody.Velocity = new Vector2(1, 0);
                         AddBody(newBody);
                     }
                 }
@@ -76,6 +84,34 @@ namespace NBody
                 //newBody1.Velocity = new Vector2(-1, 0);
                 //AddBody(newBody);
                 //AddBody(newBody1);
+
+                //BENCHMARKING
+                //Stopwatch timer = new Stopwatch();
+                //timer.Start();
+                //for(int bodyIndex = 0; bodyIndex < 1000; bodyIndex++)
+                //{
+                //    float randMass = _rng.NextFloat(1f, 5f);
+                //    Body newBody = new Body(this.GameObj.Transform.Pos.X + _rng.NextFloat(10, Width - 10),
+                //                            this.GameObj.Transform.Pos.Y + _rng.NextFloat(10, Height - 10), 
+                //                            randMass, 9.8f, 10f);
+                //    //newBody.Velocity = new Vector2(1, 0);
+                //    AddBody(newBody);
+                //}
+                //timer.Stop();
+                //Debug.WriteLine("Insert time (ms): " + timer.ElapsedMilliseconds);
+
+                //timer.Restart();
+                //List<Body> allBodies = _quadTree.ToList();
+                //timer.Stop();
+                //Debug.WriteLine("Time to query all: (ms): " + timer.ElapsedMilliseconds);
+
+                //timer.Restart();
+                //foreach(Body body in allBodies)
+                //{
+                //    _quadTree.RemoveBody(body);
+                //}
+                //timer.Stop();
+                //Debug.WriteLine("Time to remove all: (ms): " + timer.ElapsedMilliseconds);
             }
         }
 
@@ -160,7 +196,7 @@ namespace NBody
         {
 #if DEBUG
             VisualLog.Default.DrawText(new Vector2(3, 3), "Bodies: " + _quadTree.ToList().Count);
-            VisualLog.Default.DrawText(new Vector2(3, 15), "FPS: " + Time.Fps.ToString());
+            VisualLog.Default.DrawText(new Vector2(3, 13), "FPS: " + Time.Fps.ToString());
 #endif
 
             //Add a planet when mouse is clicked
@@ -176,21 +212,33 @@ namespace NBody
             if (DualityApp.Mouse.ButtonHit(MouseButton.Right))
             {
                 Vector3 mouseObjPos = _camera.GetSpaceCoord(DualityApp.Mouse.Pos);
-                float massSize = _rng.NextFloat(100000f, 5000000f);
+                float massSize = _rng.NextFloat(1000f, 50000f);
                 Body newBody = new Body(mouseObjPos.X, mouseObjPos.Y, 59736f, massSize, 50f);
                 AddBody(newBody);
             }
 
+#if DEBUG
+            _perfTimer.Restart();
+#endif
             //Rebuild the tree to account for movement           
             List<Body> bodyBuffer = _quadTree.ToList();
             foreach (Body body in bodyBuffer)
             {
-                RemoveBody(body);
                 ProcessBodies(body, _quadTree);
-                AddBody(body);                
             }
+#if DEBUG
+            _perfTimer.Stop();
+            VisualLog.Default.DrawText(new Vector2(3, 23), "Process Time: " + _perfTimer.ElapsedMilliseconds);
+#endif
+
+            _quadTree = new QuadTree(_quadTree.Bounds.TopLeft.X,
+                                        _quadTree.Bounds.TopLeft.Y,
+                                        _quadTree.Bounds.W,
+                                        _quadTree.Bounds.H,
+                                        bodyBuffer);
         }
 
+        //TODO: fix issues with physics calculations
         private void ProcessBodies(Body body, QuadTree quadTree)
         {
             if (quadTree.Body != null) //external node

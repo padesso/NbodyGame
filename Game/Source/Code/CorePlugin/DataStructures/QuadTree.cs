@@ -30,6 +30,17 @@ namespace DataStructures
             _bodies = new List<Body>();    
         }
 
+        public QuadTree(float topLeftX, float topLeftY, float width, float height, List<Body> bodies)
+        {
+            this.Bounds = new Rect(topLeftX, topLeftY, width, height);
+            _bodies = new List<Body>();
+
+            foreach(Body body in bodies)
+            {
+                Insert(body);
+            }
+        }
+
         /// <summary>
         /// Create the quads as four quadtrees that are equally subdivided in reference to this quad.
         /// </summary>
@@ -109,7 +120,8 @@ namespace DataStructures
                 //Internal node so add mass of any node passing through it
                 this.Mass += body.Mass;
 
-                CenterOfMass = new Vector2((CenterOfMass.X + body.Mass * body.Position.X) / Mass, (CenterOfMass.Y + body.Mass * body.Position.Y) / Mass);
+                //TODO: Is this wrong?
+                CenterOfMass = new Vector2((CenterOfMass.X + body.Mass * body.Position.X) / this.Mass, (CenterOfMass.Y + body.Mass * body.Position.Y) / this.Mass);
 
                 //Shift down the current position as this is now an internal node
                 if (NorthWest.Insert(this.Body))
@@ -252,7 +264,6 @@ namespace DataStructures
             set { _bounds = value; }
         }
 
-        //TODO: move to the insert process
         public Vector2 CenterOfMass
         {
             get
