@@ -46,8 +46,8 @@ namespace NBody
         public Universe()
         {
             //Set some defaults
-            Width = 5000;
-            Height = 5000;
+            Width = 1000;
+            Height = 1000;
 #if DEBUG
             _perfTimer = new Stopwatch();
 #endif
@@ -66,17 +66,17 @@ namespace NBody
                                                             -1 * Width);
 
                 //Let's setup some test data
-                for (int rows = 2000; rows < 3000; rows += 100)
-                {
-                    for (int cols = 2000; cols < 3000; cols += 100)
-                    {
-                        float randMass = _rng.NextFloat(1f, 5f);
-                        Body newBody = new Body(this.GameObj.Transform.Pos.X + cols,
-                                                this.GameObj.Transform.Pos.Y + rows, randMass, 9.8f, 10f);
-                        //newBody.Velocity = new Vector2(1, 0);
-                        AddBody(newBody);
-                    }
-                }
+                //for (int rows = 2000; rows < 3000; rows += 100)
+                //{
+                //    for (int cols = 2000; cols < 3000; cols += 100)
+                //    {
+                //        float randMass = _rng.NextFloat(1f, 5f);
+                //        Body newBody = new Body(this.GameObj.Transform.Pos.X + cols,
+                //                                this.GameObj.Transform.Pos.Y + rows, randMass, 9.8f, 10f);
+                //        //newBody.Velocity = new Vector2(1, 0);
+                //        AddBody(newBody);
+                //    }
+                //}
 
                 //Body newBody = new Body(0, -50, 100f, 9.8f, 10f);
                 //newBody.Velocity = new Vector2(1, 0);
@@ -86,27 +86,27 @@ namespace NBody
                 //AddBody(newBody1);
 
                 //BENCHMARKING
-                //Stopwatch timer = new Stopwatch();
-                //timer.Start();
-                //for(int bodyIndex = 0; bodyIndex < 1000; bodyIndex++)
-                //{
-                //    float randMass = _rng.NextFloat(1f, 5f);
-                //    Body newBody = new Body(this.GameObj.Transform.Pos.X + _rng.NextFloat(10, Width - 10),
-                //                            this.GameObj.Transform.Pos.Y + _rng.NextFloat(10, Height - 10), 
-                //                            randMass, 9.8f, 10f);
-                //    //newBody.Velocity = new Vector2(1, 0);
-                //    AddBody(newBody);
-                //}
-                //timer.Stop();
-                //Debug.WriteLine("Insert time (ms): " + timer.ElapsedMilliseconds);
+                Stopwatch timer = new Stopwatch();
+                timer.Start();
+                for (int bodyIndex = 0; bodyIndex < 500; bodyIndex++)
+                {
+                    float randMass = _rng.NextFloat(1f, 5f);
+                    Body newBody = new Body(this.GameObj.Transform.Pos.X + _rng.NextFloat(10, Width - 10),
+                                            this.GameObj.Transform.Pos.Y + _rng.NextFloat(10, Height - 10),
+                                            randMass, 9.8f, 10f);
+                    //newBody.Velocity = new Vector2(1, 0);
+                    AddBody(newBody);
+                }
+                timer.Stop();
+                Debug.WriteLine("Insert time (ms): " + timer.ElapsedMilliseconds);
+
+                timer.Restart();
+                List<Body> allBodies = _quadTree.ToList();
+                timer.Stop();
+                Debug.WriteLine("Time to query all: (ms): " + timer.ElapsedMilliseconds);
 
                 //timer.Restart();
-                //List<Body> allBodies = _quadTree.ToList();
-                //timer.Stop();
-                //Debug.WriteLine("Time to query all: (ms): " + timer.ElapsedMilliseconds);
-
-                //timer.Restart();
-                //foreach(Body body in allBodies)
+                //foreach (Body body in allBodies)
                 //{
                 //    _quadTree.RemoveBody(body);
                 //}
@@ -238,7 +238,7 @@ namespace NBody
                                         bodyBuffer);
         }
 
-        //TODO: fix issues with physics calculations
+        //TODO: is CoM being populated properly?
         private void ProcessBodies(Body body, QuadTree quadTree)
         {
             if (quadTree.Body != null) //external node
@@ -248,22 +248,25 @@ namespace NBody
 
                 body.Velocity += body.Acceleration * Time.TimeMult / TimeStepModifier;
                 body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
+                body.Acceleration = Vector2.Zero;
 
                 Vector2 r = quadTree.Body.Position - body.Position;
-                float dist = Distance(quadTree.CenterOfMass, body.Position);
+                float dist = r.LengthSquared;
                 Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
-                body.Acceleration = force * quadTree.Body.Mass;
+                body.Acceleration += force * quadTree.Body.Mass;
                 quadTree.Body.Acceleration -= force * body.Mass;
             }
             else if (quadTree.Bounds.W / Distance(body.Position, quadTree.CenterOfMass) < Theta)  //Treat the quadtree as a group of nodes
             {
                 body.Velocity += body.Acceleration * Time.TimeMult / TimeStepModifier;
                 body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
+                body.Acceleration = Vector2.Zero;
 
                 Vector2 r = quadTree.CenterOfMass - body.Position;
-                float dist = Distance(quadTree.CenterOfMass, body.Position);
+                float dist = r.LengthSquared;
                 Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
-                body.Acceleration = force * quadTree.Mass;
+                body.Acceleration += force * quadTree.Mass;
+                //quadTree.Body.Acceleration -= force * body.Mass;
             }
             else //Recurse down and repeat process
             {
