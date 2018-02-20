@@ -38,16 +38,13 @@ namespace NBody
         //Distance threshold
         public float Theta = 0.5f;
 
-        //Time step modifier
-        public float TimeStepModifier = 1.0f;
-
         private bool _showDebug = false;
 
         public Universe()
         {
             //Set some defaults
-            Width = 1000;
-            Height = 1000;
+            Width = 500;
+            Height = 500;
 #if DEBUG
             _perfTimer = new Stopwatch();
 #endif
@@ -65,6 +62,22 @@ namespace NBody
                                                             this.GameObj.Transform.Pos.Y + Height / 2.0f,
                                                             -1 * Width);
 
+                //Vector2 position1 = new Vector2(-100, 200);
+                //Vector2 position2 = new Vector2(100, -200);
+                //_perfTimer.Restart();
+                //float dist1 = (float)Math.Sqrt(Math.Pow(position2.X - position1.X, 2) + Math.Pow(position2.Y - position1.Y, 2));
+                //_perfTimer.Stop();
+                //Debug.WriteLine("dist1 calc time: " + _perfTimer.Elapsed);
+
+                //_perfTimer.Restart();
+                //float dist2 = (float)Math.Sqrt(
+                //                        (position2.X - position1.X) * (position2.X - position1.X) +
+                //                        (position2.Y - position1.Y) * (position2.Y - position1.Y));
+                //_perfTimer.Stop();
+                //Debug.WriteLine("dist2 calc time: " + _perfTimer.Elapsed);
+
+                //Debug.WriteLine("Wait");
+
                 //Let's setup some test data
                 //for (int rows = 2000; rows < 3000; rows += 100)
                 //{
@@ -78,6 +91,7 @@ namespace NBody
                 //    }
                 //}
 
+                //Test binary pair
                 //Body newBody = new Body(0, -50, 100f, 9.8f, 10f);
                 //newBody.Velocity = new Vector2(1, 0);
                 //Body newBody1 = new Body(0, 50, 100f, 9.8f, 10f);
@@ -85,10 +99,16 @@ namespace NBody
                 //AddBody(newBody);
                 //AddBody(newBody1);
 
+                //Test far apart bodies
+                //Body newBody = new Body(-240, -240, 100f, 9.8f, 10f);
+                //Body newBody1 = new Body(240, 240, 100f, 9.8f, 10f);
+                //AddBody(newBody);
+                //AddBody(newBody1);
+
                 //BENCHMARKING
                 Stopwatch timer = new Stopwatch();
                 timer.Start();
-                for (int bodyIndex = 0; bodyIndex < 500; bodyIndex++)
+                for (int bodyIndex = 0; bodyIndex < 5000; bodyIndex++)
                 {
                     float randMass = _rng.NextFloat(1f, 5f);
                     Body newBody = new Body(this.GameObj.Transform.Pos.X + _rng.NextFloat(10, Width - 10),
@@ -194,11 +214,6 @@ namespace NBody
 
         public void OnUpdate()
         {
-#if DEBUG
-            VisualLog.Default.DrawText(new Vector2(3, 3), "Bodies: " + _quadTree.ToList().Count);
-            VisualLog.Default.DrawText(new Vector2(3, 13), "FPS: " + Time.Fps.ToString());
-#endif
-
             //Add a planet when mouse is clicked
             if (DualityApp.Mouse.ButtonHit(MouseButton.Left))
             {
@@ -212,16 +227,22 @@ namespace NBody
             if (DualityApp.Mouse.ButtonHit(MouseButton.Right))
             {
                 Vector3 mouseObjPos = _camera.GetSpaceCoord(DualityApp.Mouse.Pos);
-                float massSize = _rng.NextFloat(1000f, 50000f);
-                Body newBody = new Body(mouseObjPos.X, mouseObjPos.Y, 59736f, massSize, 50f);
+                float massSize = _rng.NextFloat(1000f, 5000f);
+                Body newBody = new Body(mouseObjPos.X, mouseObjPos.Y, 597.36f, massSize, 50f);
                 AddBody(newBody);
             }
 
 #if DEBUG
-            _perfTimer.Restart();
+            //_perfTimer.Restart();
 #endif
             //Rebuild the tree to account for movement           
             List<Body> bodyBuffer = _quadTree.ToList();
+#if DEBUG
+            VisualLog.Default.DrawText(new Vector2(3, 3), "Bodies: " + bodyBuffer.Count);
+            Debug.WriteLine("Bodies: " + bodyBuffer.Count);
+            VisualLog.Default.DrawText(new Vector2(3, 13), "FPS: " + Time.Fps.ToString());
+            Debug.WriteLine("FPS: " + Time.Fps.ToString());
+#endif
             foreach (Body body in bodyBuffer)
             {
                 ProcessBodies(body, _quadTree);
@@ -229,8 +250,8 @@ namespace NBody
 #if DEBUG
             _perfTimer.Stop();
             VisualLog.Default.DrawText(new Vector2(3, 23), "Process Time: " + _perfTimer.ElapsedMilliseconds);
+            Debug.WriteLine("Process Time: " + _perfTimer.ElapsedMilliseconds);
 #endif
-
             _quadTree = new QuadTree(_quadTree.Bounds.TopLeft.X,
                                         _quadTree.Bounds.TopLeft.Y,
                                         _quadTree.Bounds.W,
@@ -246,27 +267,34 @@ namespace NBody
                 if (body == quadTree.Body) //Don't compare to self
                     return;
 
-                body.Velocity += body.Acceleration * Time.TimeMult / TimeStepModifier;
-                body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
+                body.Velocity += body.Acceleration * Time.TimeMult;
+                body.Position += body.Velocity * Time.TimeMult;
                 body.Acceleration = Vector2.Zero;
 
                 Vector2 r = quadTree.Body.Position - body.Position;
                 float dist = r.LengthSquared;
-                Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
-                body.Acceleration += force * quadTree.Body.Mass;
-                quadTree.Body.Acceleration -= force * body.Mass;
+                if (dist > body.Radius * body.Radius) //Prevent bad math when bodies overlap
+                {
+                    Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
+                    body.Acceleration += force * quadTree.Body.Mass;
+                    quadTree.Body.Acceleration -= force * body.Mass;
+                }
             }
             else if (quadTree.Bounds.W / Distance(body.Position, quadTree.CenterOfMass) < Theta)  //Treat the quadtree as a group of nodes
             {
-                body.Velocity += body.Acceleration * Time.TimeMult / TimeStepModifier;
-                body.Position += body.Velocity * Time.TimeMult / TimeStepModifier;
+                body.Velocity += body.Acceleration * Time.TimeMult;
+                body.Position += body.Velocity * Time.TimeMult;
                 body.Acceleration = Vector2.Zero;
 
                 Vector2 r = quadTree.CenterOfMass - body.Position;
                 float dist = r.LengthSquared;
-                Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
-                body.Acceleration += force * quadTree.Mass;
-                //quadTree.Body.Acceleration -= force * body.Mass;
+
+                if (dist > body.Radius * body.Radius) //Prevent bad math when bodies overlap
+                {
+                    Vector2 force = r / (float)(Math.Sqrt(dist) * dist);
+                    body.Acceleration += force * quadTree.Mass;
+                    //quadTree.Body.Acceleration -= force * body.Mass;  //TODO: every force has equal and opposite but not being taken into account in the estimation...
+                }
             }
             else //Recurse down and repeat process
             {
@@ -285,9 +313,11 @@ namespace NBody
         }
 
         private float Distance(Vector2 position1, Vector2 position2)
-        {
-            //Vector2 r = position1 - position2;
-            return (float)Math.Sqrt(Math.Pow(position2.X - position1.X, 2) + Math.Pow(position2.Y - position1.Y, 2));
+        {            
+            return (float)Math.Sqrt(
+                            (position2.X - position1.X) * (position2.X - position1.X) +
+                            (position2.Y - position1.Y) * (position2.Y - position1.Y));
+
         }
 
         public void OnShutdown(ShutdownContext context)

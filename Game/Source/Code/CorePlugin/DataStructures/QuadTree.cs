@@ -44,31 +44,34 @@ namespace DataStructures
         /// <summary>
         /// Create the quads as four quadtrees that are equally subdivided in reference to this quad.
         /// </summary>
-        protected virtual void Subdivide()
+        protected void Subdivide()
         {
+            float halfWidth = Bounds.W / 2.0f;
+            float halfHeight = Bounds.H / 2.0f;
+
             NorthWest = new QuadTree(
                     Bounds.X, 
                     Bounds.Y,
-                    Bounds.W / 2.0f, 
-                    Bounds.H / 2.0f);
+                    halfWidth,
+                    halfHeight);
 
             NorthEast = new QuadTree(
                     Bounds.CenterX, 
                     Bounds.Y,
-                    Bounds.W / 2.0f, 
-                    Bounds.H / 2.0f);
+                    halfWidth,
+                    halfHeight);
 
             SouthWest = new QuadTree(
                     Bounds.X, 
                     Bounds.CenterY,
-                    Bounds.W / 2.0f, 
-                    Bounds.H / 2.0f);
+                    halfWidth,
+                    halfHeight);
 
             SouthEast = new QuadTree(
                     Bounds.CenterX, 
                     Bounds.CenterY,
-                    Bounds.W / 2.0f, 
-                    Bounds.H / 2.0f);
+                    halfWidth,
+                    halfHeight);
         }
 
         public bool AddBody(Body body)
@@ -99,8 +102,11 @@ namespace DataStructures
         private bool Insert(Body body)
         {
             // Ignore objects that do not belong in this quad tree
-            if (!this.Bounds.Contains(body.Position))
-                return false; // object cannot be added to this quad
+            //if (!this.Bounds.Contains(body.Position))
+            //    return false; // object cannot be added to this quad
+
+            if (!BoundsContains(this.Bounds, body.Position))
+                return false;
 
             //If the quad is not full and it is an external node, fill it
             if (this.Body == null && NorthWest == null)
@@ -222,6 +228,23 @@ namespace DataStructures
                 positionsInBounds.AddRange(SouthEast.QueryBounds(bounds));
 
             return positionsInBounds;
+        }
+
+        private bool BoundsContains(Rect rect, Vector2 position)
+        {
+            if (position.X < rect.LeftX)
+                return false;
+
+            if (position.X > rect.RightX)
+                return false;
+
+            if (position.Y < rect.TopY)
+                return false;
+
+            if (position.Y > rect.BottomY)
+                return false;
+
+            return true;  
         }
 
         public List<Body> ToList()
